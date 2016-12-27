@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-navbar danger>
+        <ion-title>
+            New Kid
+        </ion-title>
+        <ion-buttons end>
+            <button (click)="close()"><ion-icon name="close"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content class="add-child">
+    <form (submit)="processForm()" [formGroup]="form">
+        <ion-list>
+
+            <ion-item class="child-item">
+                <ion-input calss="child-name" placeholder="Type Name Here" formControlName="kidName" autofocus type="text"></ion-input>
+            </ion-item>
+
+            <ion-item class="child-item" (click)="selectToken()">
+                Select Token
+
+                <ion-thumbnail item-left>
+                    <img src="{{tokenType}}">
+                </ion-thumbnail>
+                 <ion-icon name='ios-arrow-forward' item-right ></ion-icon>
+
+            </ion-item>
+
+            <ion-item class="child-item" (click)="selectTokenNumbers()">
+                Token Numbers
+
+                <ion-thumbnail item-left>
+                    <img src="{{srcTokenNumbers}}">
+                </ion-thumbnail>
+                 <ion-icon name='ios-arrow-forward' item-right ></ion-icon>
+
+            </ion-item>
+            <ion-item class="child-item">
+                <ion-row>
+                    <ion-col width-50>
+                        <button type="button" full danger round large (click)="takePhoto()">
+                    <ion-icon name="md-camera"></ion-icon>
+                </button>
+                    </ion-col>
+                    <ion-col width-50>
+                        <button type="button" full secondary round large (click)="openGallery()">
+                    <ion-icon name="md-image"></ion-icon>
+                </button>
+                    </ion-col>
+                </ion-row>
+            </ion-item>
+
+        </ion-list>
+
+        <div padding>
+            <button primary full round large type="submit" [disabled]="!form.valid"><ion-icon name="md-person-add"></ion-icon></button>
+
+        </div>
+
+        <div class="child-photo">
+            <img src="{{base64Image}}" class="child-background-image">
+        </div>
+    </form>
+</ion-content>
