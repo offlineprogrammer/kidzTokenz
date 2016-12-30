@@ -10,8 +10,8 @@ import { Child } from '../../models/child';
 })
 export class AddKidModal {
   form: FormGroup;
-   tokenType: string = 'images/star.png';
-    srcTokenNumbers: string = 'images/5.png';
+   tokenType: string = 'assets/images/star.png';
+    srcTokenNumbers: string = 'assets/images/5.png';
     tokenNumbers: number = 5;
     base64Image: string;
 

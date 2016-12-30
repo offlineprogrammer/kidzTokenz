@@ -1,10 +1,10 @@
 <ion-header>
-    <ion-navbar danger>
+    <ion-navbar color="danger">
         <ion-title>
             New Kid
         </ion-title>
         <ion-buttons end>
-            <button (click)="close()"><ion-icon name="close"></ion-icon></button>
+            <button ion-button icon-only (click)="close()"><ion-icon name="close-circle"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
@@ -38,12 +38,12 @@
             <ion-item class="child-item">
                 <ion-row>
                     <ion-col width-50>
-                        <button type="button" full danger round large (click)="takePhoto()">
+                        <button ion-button color="danger" type="button" full  round large (click)="takePhoto()">
                     <ion-icon name="md-camera"></ion-icon>
                 </button>
                     </ion-col>
                     <ion-col width-50>
-                        <button type="button" full secondary round large (click)="openGallery()">
+                        <button ion-button color="secondary" type="button" full  round large (click)="openGallery()">
                     <ion-icon name="md-image"></ion-icon>
                 </button>
                     </ion-col>
@@ -53,7 +53,7 @@
         </ion-list>
 
         <div padding>
-            <button primary full round large type="submit" [disabled]="!form.valid"><ion-icon name="md-person-add"></ion-icon></button>
+            <button ion-button color="primary" full round large type="submit" [disabled]="!form.valid"><ion-icon name="md-person-add"></ion-icon></button>
 
         </div>
 

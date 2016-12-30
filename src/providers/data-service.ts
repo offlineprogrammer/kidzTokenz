@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Child } from '../models/child';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
 /*
@@ -11,10 +12,14 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class DataService {
-   Kids: Child[] = [];
+  Kids: Child[] = [];
+ storage: Storage;
 
-  constructor(public http: Http) {
+  private KIDS_KEY: string = 'kids';
+
+  constructor(public http: Http, storage: Storage) {
     console.log('Hello DataService Provider');
+    this.storage = storage;
   }
 
   getKids(): Promise<Child[]> {
@@ -43,12 +48,22 @@ export class DataService {
 
       }
       this.Kids.push(data);
-      //this.saveData(this.Kids, this.KIDS_KEY);
+      this.saveData(this.Kids, this.KIDS_KEY);
       resolve('Done');
 
     }).catch((error) => {
       // reject('Only available on a device');
     });
+  }
+
+  private saveData(data: any, key: string) {
+    if (data) {
+      let newData = JSON.stringify(data);
+      
+      this.storage.set(key, newData);
+    } else {
+      this.storage.remove(key);
+    }
   }
 
 }
