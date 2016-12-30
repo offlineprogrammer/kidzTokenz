@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class DataService {
+   Kids: Child[] = [];
 
   constructor(public http: Http) {
     console.log('Hello DataService Provider');
@@ -19,18 +20,34 @@ export class DataService {
   getKids(): Promise<Child[]> {
     let oKids: any;
     return new Promise(resolve => {
-/*      if (typeof (this.storage) !== 'undefined') {
-        this.storage.get(this.KIDS_KEY).then((value) => {
-          if (value) {
-            console.log(value);
-            this.Kids = JSON.parse(value);
-            // this.Kids = oKids;
+      /*      if (typeof (this.storage) !== 'undefined') {
+              this.storage.get(this.KIDS_KEY).then((value) => {
+                if (value) {
+                  console.log(value);
+                  this.Kids = JSON.parse(value);
+                  // this.Kids = oKids;
+      
+                  resolve(this.Kids);
+                }
+              });
+      
+            }*/
+    });
+  }
 
-            resolve(this.Kids);
-          }
-        });
+  addKid(data: Child): Promise<any> {
+    let oKids: any;
+    return new Promise((resolve, reject) => {
+      if (typeof this.Kids === 'undefined') {
+        this.Kids = [];
 
-      }*/
+      }
+      this.Kids.push(data);
+      //this.saveData(this.Kids, this.KIDS_KEY);
+      resolve('Done');
+
+    }).catch((error) => {
+      // reject('Only available on a device');
     });
   }
 
