@@ -25,7 +25,7 @@ export class DataService {
   getKids(): Promise<Child[]> {
     let oKids: any;
     return new Promise(resolve => {
-      /*      if (typeof (this.storage) !== 'undefined') {
+     if (typeof (this.storage) !== 'undefined') {
               this.storage.get(this.KIDS_KEY).then((value) => {
                 if (value) {
                   console.log(value);
@@ -36,7 +36,7 @@ export class DataService {
                 }
               });
       
-            }*/
+            }
     });
   }
 

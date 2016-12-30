@@ -16,6 +16,13 @@ export class HomePage {
     private modalController: ModalController,
     public dataService: DataService) {
 
+    this.dataService.getKids()
+      .then((response) => {
+
+        this.kids = response;
+
+      });
+
   }
 
   addNewKid(): void {
