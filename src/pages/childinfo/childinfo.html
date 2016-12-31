@@ -5,11 +5,15 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+  <ion-navbar color="danger">
+    <ion-title>Kidz Tokenz</ion-title>
 
-  <ion-navbar>
-    <ion-title>childinfo</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="deleteChild(oChild)">
+        <ion-icon name="md-trash"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 

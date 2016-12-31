@@ -3,6 +3,7 @@ import { Child } from '../../models/child';
 import { NavController, ModalController } from 'ionic-angular';
 import { AddKidModal } from './add-kid-modal';
 import { DataService } from '../../providers/data-service';
+import { ChildinfoPage } from '../childinfo/childinfo';
 
 
 @Component({
@@ -41,10 +42,10 @@ export class HomePage {
   }
 
   itemSelected(data: Child): void {
-    /*this.navCtrl.push(ChildInfo, {
+    this.navCtrl.push(ChildinfoPage, {
       child: data
 
-    });*/
+    });
 
     console.log(data);
 
