@@ -19,4 +19,53 @@
 
 <ion-content padding>
 
+    <h2>{{oChild.name}}</h2>
+
+  <div class="child-photo">
+      <img src="{{oChild.childimage}}" class="child-background-image">
+    </div>
+
+  <ion-item-group>
+   
+    <ion-item class="child-item" (click)="changeToken()">
+      <ion-label>
+        Type of Token
+      </ion-label>
+      <ion-thumbnail item-left>
+        <img src="{{oChild.tokenType}}">
+      </ion-thumbnail>
+      <ion-icon name='md-options' item-right ></ion-icon>
+    </ion-item>
+    <ion-item class="child-item" (click)="changeTokenNumbers()">
+      <ion-label>
+        Number of Tokenz
+      </ion-label>
+     
+      <ion-thumbnail item-left>
+        <img src="{{oChild.srcTokenNumbers}}">
+      </ion-thumbnail>
+      <ion-icon name='md-options' item-right ></ion-icon>
+    </ion-item>
+
+    <ion-item-divider danger class="task-divider">I am working for:</ion-item-divider>
+    <ion-list>
+    
+      
+      
+      <ion-item *ngFor="let item of oChild.tasks" (click)="itemSelected(item)" class="child-item">
+         <ion-thumbnail item-left>
+        <img src="{{item.taskimage}}">
+      </ion-thumbnail>
+     
+      <h2>
+      {{item.name}}
+    </h2>
+      <ion-badge secondary >{{item.score}} tokenz </ion-badge>
+      <ion-icon name='ios-arrow-forward' item-right ></ion-icon>
+
+      </ion-item>
+
+     </ion-list>
+  </ion-item-group>
+
 </ion-content>

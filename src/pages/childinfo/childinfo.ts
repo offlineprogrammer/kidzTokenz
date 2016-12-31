@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Child } from '../../models/child';
 
 /*
   Generated class for the Childinfo page.
@@ -12,8 +13,11 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'childinfo.html'
 })
 export class ChildinfoPage {
+   oChild: Child
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+     this.oChild = navParams.get('child');
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChildinfoPage');

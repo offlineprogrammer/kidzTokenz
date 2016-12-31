@@ -56,7 +56,7 @@ export class AddKidModal {
       name: this.form.value.kidName,
       tokenType: this.tokenType,
       tokenNumbers: this.tokenNumbers,
-      srcTokenNumbers: 'images/' + this.tokenNumbers + '.png',
+      srcTokenNumbers: 'assets/images/' + this.tokenNumbers + '.png',
       isActive: true,
       childimage: this.base64Image,
       tasks: []
