@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DataService {
   Kids: Child[] = [];
- storage: Storage;
+  storage: Storage;
 
   private KIDS_KEY: string = 'kids';
 
@@ -25,18 +25,18 @@ export class DataService {
   getKids(): Promise<Child[]> {
     let oKids: any;
     return new Promise(resolve => {
-     if (typeof (this.storage) !== 'undefined') {
-              this.storage.get(this.KIDS_KEY).then((value) => {
-                if (value) {
-                  console.log(value);
-                  this.Kids = JSON.parse(value);
-                  // this.Kids = oKids;
-      
-                  resolve(this.Kids);
-                }
-              });
-      
-            }
+      if (typeof (this.storage) !== 'undefined') {
+        this.storage.get(this.KIDS_KEY).then((value) => {
+          if (value) {
+            console.log(value);
+            this.Kids = JSON.parse(value);
+            // this.Kids = oKids;
+
+            resolve(this.Kids);
+          }
+        });
+
+      }
     });
   }
 
@@ -59,11 +59,30 @@ export class DataService {
   private saveData(data: any, key: string) {
     if (data) {
       let newData = JSON.stringify(data);
-      
+
       this.storage.set(key, newData);
     } else {
       this.storage.remove(key);
     }
   }
+
+  getTokenTypes(): string[] {
+    let tokenTypes: any =
+      ['assets/images/star.png',
+        'assets/images/face.png',
+        'assets/images/giraffe.png',
+        'assets/images/leopard.png',
+        'assets/images/monkey.png',
+        'assets/images/monkeytoy.png',
+        'assets/images/rocket.png',
+        'assets/images/Sheep.png',
+        'assets/images/teddybear.png',
+        'assets/images/train.png',
+        'assets/images/triceratops.png',
+      ];
+    return tokenTypes;
+
+  }
+
 
 }
