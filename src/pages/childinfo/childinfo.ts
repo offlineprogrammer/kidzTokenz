@@ -13,10 +13,10 @@ import { Child } from '../../models/child';
   templateUrl: 'childinfo.html'
 })
 export class ChildinfoPage {
-   oChild: Child
+  oChild: Child
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-     this.oChild = navParams.get('child');
+    this.oChild = navParams.get('child');
   }
 
   ionViewDidLoad() {
