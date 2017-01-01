@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,ModalController } from 'ionic-angular';
 import { Child } from '../../models/child';
+import { TokentypePage } from '../tokentype/tokentype';
+import { DataService } from '../../providers/data-service';
 
 /*
   Generated class for the Childinfo page.
@@ -15,12 +17,33 @@ import { Child } from '../../models/child';
 export class ChildinfoPage {
   oChild: Child
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,  private modalController: ModalController,  private dataService: DataService,) {
     this.oChild = navParams.get('child');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChildinfoPage');
   }
+
+    changeToken(): void {
+        let modal = this.modalController.create(TokentypePage, {selectedToken: this.oChild.tokenType});
+    modal.onDidDismiss(data => {
+     this.oChild.tokenType = data.selectedToken;
+      this.updateData();
+    });
+
+    modal.present();
+    }
+
+
+   
+
+
+    private updateData(): void {
+      this.oChild.srcTokenNumbers = 'assets/images/' + this.oChild.tokenNumbers + '.png',
+        this.dataService.updateKids()
+            .then(() => {});
+    }
+
 
 }

@@ -4,6 +4,7 @@ import { KidzTokenz } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AddKidModal } from '../pages/home/add-kid-modal';
 import { ChildinfoPage } from '../pages/childinfo/childinfo';
+import { TokentypePage } from '../pages/tokentype/tokentype';
 import { DataService } from '../providers/data-service';
 import { Storage } from '@ionic/storage';
 
@@ -12,7 +13,8 @@ import { Storage } from '@ionic/storage';
     KidzTokenz,
     HomePage,
     AddKidModal,
-    ChildinfoPage
+    ChildinfoPage,
+    TokentypePage
   ],
   imports: [
     IonicModule.forRoot(KidzTokenz)
@@ -22,7 +24,8 @@ import { Storage } from '@ionic/storage';
     KidzTokenz,
     HomePage,
     AddKidModal,
-    ChildinfoPage
+    ChildinfoPage,
+    TokentypePage
   ],
   providers: [Storage,DataService,{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

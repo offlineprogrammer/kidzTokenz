@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController, ModalController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
+import { TokentypePage } from '../tokentype/tokentype';
+
 
 @Component({
   selector: 'page-addKidModal',
@@ -10,16 +12,17 @@ import { Child } from '../../models/child';
 })
 export class AddKidModal {
   form: FormGroup;
-   tokenType: string = 'assets/images/star.png';
-    srcTokenNumbers: string = 'assets/images/5.png';
-    tokenNumbers: number = 5;
-    base64Image: string;
+  tokenType: string = 'assets/images/star.png';
+  srcTokenNumbers: string = 'assets/images/5.png';
+  tokenNumbers: number = 5;
+  base64Image: string;
 
 
   constructor(public navCtrl: NavController,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private viewController: ViewController
+    private viewController: ViewController,
+    private modalController: ModalController
   ) {
 
     this.form = this.formBuilder.group({
@@ -46,6 +49,14 @@ export class AddKidModal {
     return uuid;
   }
 
+  selectToken() {
+    let modal = this.modalController.create(TokentypePage, { selectedToken: this.tokenType });
+    modal.onDidDismiss(data => {
+      this.tokenType = data.selectedToken;
+    });
+
+    modal.present();
+  }
 
 
   processForm() {
@@ -65,15 +76,15 @@ export class AddKidModal {
     if (this.form.status === 'VALID') {
       this.dataService.addKid(newkid)
         .then(() => {
-   /*       this.dataService.updateKids();
-          let oGAEvent: GAEvent;
-          oGAEvent = {
-            category: 'Child',
-            action: 'AddChild',
-            label: newkid.tokenType,
-            value: newkid.tokenNumbers,
-          };
-          this.gaService.trackEvent(oGAEvent);*/
+          /*       this.dataService.updateKids();
+                 let oGAEvent: GAEvent;
+                 oGAEvent = {
+                   category: 'Child',
+                   action: 'AddChild',
+                   label: newkid.tokenType,
+                   value: newkid.tokenNumbers,
+                 };
+                 this.gaService.trackEvent(oGAEvent);*/
           this.close();
         });
     };

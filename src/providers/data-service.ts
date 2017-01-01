@@ -84,5 +84,21 @@ export class DataService {
 
   }
 
+    updateKids(): Promise < any > {
+        let oKids: any;
+        return new Promise((resolve, reject) => {
+            if (typeof this.Kids === 'undefined') {
+                this.Kids = [];
+
+            }
+
+            this.saveData(this.Kids, this.KIDS_KEY);
+            resolve('Done');
+
+        }).catch((error) => {
+            //this.logError(error);
+            // reject('Only available on a device');
+        });
+    }
 
 }
