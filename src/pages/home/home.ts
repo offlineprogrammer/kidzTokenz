@@ -19,11 +19,8 @@ export class HomePage {
 
     this.dataService.getKids()
       .then((response) => {
-
         this.kids = response;
-
       });
-
   }
 
   addNewKid(): void {
@@ -31,24 +28,17 @@ export class HomePage {
     modal.onDidDismiss(data => {
       this.dataService.getKids()
         .then((response) => {
-
           this.kids = response;
-
         });
     });
-
     modal.present();
-
   }
 
   itemSelected(data: Child): void {
     this.navCtrl.push(ChildinfoPage, {
       child: data
-
     });
-
     console.log(data);
-
   }
 
 

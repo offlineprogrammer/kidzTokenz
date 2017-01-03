@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { Child } from '../../models/child';
 import { TokentypePage } from '../tokentype/tokentype';
 import { TokennumbersPage } from '../tokennumbers/tokennumbers';
@@ -18,7 +18,7 @@ import { DataService } from '../../providers/data-service';
 export class ChildinfoPage {
   oChild: Child
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  private modalController: ModalController,  private dataService: DataService,) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalController: ModalController, private dataService: DataService, ) {
     this.oChild = navParams.get('child');
   }
 
@@ -26,37 +26,35 @@ export class ChildinfoPage {
     console.log('ionViewDidLoad ChildinfoPage');
   }
 
-    changeToken(): void {
-        let modal = this.modalController.create(TokentypePage, {selectedToken: this.oChild.tokenType});
+  changeToken(): void {
+    let modal = this.modalController.create(TokentypePage, { selectedToken: this.oChild.tokenType });
     modal.onDidDismiss(data => {
-     this.oChild.tokenType = data.selectedToken;
+      this.oChild.tokenType = data.selectedToken;
       this.updateData();
     });
-
     modal.present();
-    }
+  }
 
-      changeTokenNumbers(): void {
-        let modal = this.modalController.create(TokennumbersPage, {tokenNumbers: this.oChild.srcTokenNumbers});
+  changeTokenNumbers(): void {
+    let modal = this.modalController.create(TokennumbersPage, { tokenNumbers: this.oChild.srcTokenNumbers });
     modal.onDidDismiss(data => {
-     this.oChild.tokenNumbers = data.tokenNumbers;
-     this.oChild.srcTokenNumbers = 'assets/images/' + this.oChild.tokenNumbers + '.png';
-     this.updateData();
+      this.oChild.tokenNumbers = data.tokenNumbers;
+      this.oChild.srcTokenNumbers = 'assets/images/' + this.oChild.tokenNumbers + '.png';
+      this.updateData();
     });
-
     modal.present();
-    }
+  }
 
 
 
-   
 
 
-    private updateData(): void {
-      this.oChild.srcTokenNumbers = 'assets/images/' + this.oChild.tokenNumbers + '.png',
-        this.dataService.updateKids()
-            .then(() => {});
-    }
+
+  private updateData(): void {
+    this.oChild.srcTokenNumbers = 'assets/images/' + this.oChild.tokenNumbers + '.png',
+      this.dataService.updateKids()
+        .then(() => { });
+  }
 
 
 }
