@@ -36,6 +36,18 @@ export class ChildinfoPage {
     modal.present();
     }
 
+      changeTokenNumbers(): void {
+        let modal = this.modalController.create(TokennumbersPage, {tokenNumbers: this.oChild.srcTokenNumbers});
+    modal.onDidDismiss(data => {
+     this.oChild.tokenNumbers = data.tokenNumbers;
+     this.oChild.srcTokenNumbers = 'assets/images/' + this.oChild.tokenNumbers + '.png';
+     this.updateData();
+    });
+
+    modal.present();
+    }
+
+
 
    
 

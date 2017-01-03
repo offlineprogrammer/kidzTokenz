@@ -4,6 +4,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
 import { TokentypePage } from '../tokentype/tokentype';
+import { TokennumbersPage } from '../tokennumbers/tokennumbers';
 
 
 @Component({
@@ -57,6 +58,18 @@ export class AddKidModal {
 
     modal.present();
   }
+
+
+  selectTokenNumbers() {
+    let modal = this.modalController.create(TokennumbersPage, { tokenNumbers: this.srcTokenNumbers });
+    modal.onDidDismiss(data => {
+      this.tokenNumbers = data.tokenNumbers;
+      this.srcTokenNumbers = 'assets/images/' + this.tokenNumbers + '.png';
+    });
+
+    modal.present();
+  }
+
 
 
   processForm() {

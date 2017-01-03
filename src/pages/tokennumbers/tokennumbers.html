@@ -5,14 +5,24 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>tokennumbers</ion-title>
+  <ion-navbar color="danger">
+    <ion-title>
+      Token Numbers
+    </ion-title>
+    <ion-buttons start>
+      <button (click)="dismiss()">
+        <ion-icon name="md-close" ></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content padding>
-
+  <ion-list>
+    <ion-item class="child-item" *ngFor="let item of tokenNumbersArray" (click)="itemSelected(item)">
+      <ion-thumbnail item-left>
+        <img src="{{item}}">
+      </ion-thumbnail>
+      <ion-icon name='ios-arrow-forward' item-right></ion-icon>
+    </ion-item>
+  </ion-list>
 </ion-content>
