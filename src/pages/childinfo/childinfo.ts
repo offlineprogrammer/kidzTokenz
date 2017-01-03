@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams,ModalController } from 'ionic-angular';
 import { Child } from '../../models/child';
 import { TokentypePage } from '../tokentype/tokentype';
+import { TokennumbersPage } from '../tokennumbers/tokennumbers';
 import { DataService } from '../../providers/data-service';
 
 /*
