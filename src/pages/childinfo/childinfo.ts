@@ -3,7 +3,10 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { Child } from '../../models/child';
 import { TokentypePage } from '../tokentype/tokentype';
 import { TokennumbersPage } from '../tokennumbers/tokennumbers';
+import { TaskInfoPage } from '../task-info/task-info';
 import { DataService } from '../../providers/data-service';
+import { AddTaskModal } from './add-task-modal';
+import { Task } from '../../models/task';
 
 /*
   Generated class for the Childinfo page.
@@ -46,7 +49,18 @@ export class ChildinfoPage {
   }
 
 
+  addNewTask(data: any): void {
+    let modal = this.modalController.create(AddTaskModal, { 'child': this.oChild });
+    modal.present();
 
+  }
+
+   itemSelected(data: Task): void {
+      this.navCtrl.push(TaskInfoPage, {task: data, child: this.oChild});
+  
+      console.log(data);
+   
+  }
 
 
 

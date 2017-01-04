@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-title>
+      New Task
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="close()"><ion-icon name="close-circle"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <form (submit)="processForm()" [formGroup]="form">
+    <ion-list>
+      <ion-item class="child-item">
+        <ion-label floating>Type Task Name Here</ion-label>
+        <ion-input formControlName="taskName" autofocus type="text"></ion-input>
+      </ion-item>
+      <ion-item class="child-item">
+        <ion-row>
+          <ion-col width-50>
+            <button ion-button color="danger" type="button" full round large (click)="takePhoto()">
+                    <ion-icon name="md-camera"></ion-icon>
+                </button>
+          </ion-col>
+          <ion-col width-50>
+            <button ion-button color="secondary" type="button" full round large (click)="openGallery()">
+                    <ion-icon name="md-image"></ion-icon>
+                </button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button color="primary" full round large type="submit" [disabled]="!form.valid"><ion-icon name="md-done-all"></ion-icon></button>
+    </div>
+    <div class="task-photo">
+      <img src={{base64Image}} class="task-background-image">
+    </div>
+  </form>
+</ion-content>
