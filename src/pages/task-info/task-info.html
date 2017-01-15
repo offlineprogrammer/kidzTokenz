@@ -23,22 +23,22 @@
   <ion-grid>
     <ion-row>
       <ion-col width-50>
-        <button full danger round large [disabled]="oTask.score == oChild.tokenNumbers" (click)="addToken()">
-          <ion-icon name="md-add"></ion-icon>
+        <button ion-button full color="danger" round large [disabled]="oTask.score == oChild.tokenNumbers" (click)="addToken()">
+          <ion-icon name="md-add"></ion-icon> 
         </button>
       </ion-col>
       <ion-col width-50>
-        <button full secondary round large [disabled]="oTask.score == 0" (click)="removeToken()">
+        <button ion-button full color="secondary" round large [disabled]="oTask.score == 0" (click)="removeToken()">
           <ion-icon name="md-remove"></ion-icon>
         </button>
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let trio of tokenstriples">
+    <ion-row *ngFor="let trio of tokenstriples" >
       <ion-col *ngFor="let item of trio">
-        <ion-thumbnail class="images-parent">
+       
           <img *ngIf="item + 1 > oTask.score" class="bwimage" src="{{oChild.tokenType}}">
           <img *ngIf="item + 1 <= oTask.score" class="center-image" src="{{oChild.tokenType}}">
-        </ion-thumbnail>
+       
       </ion-col>
     </ion-row>
     <ion-row class="task-comment"  *ngIf="oTask.score < oChild.tokenNumbers">
@@ -53,7 +53,7 @@
     </ion-row>
     <ion-row >
       <ion-col>
-        <button [disabled]="oTask.score < oChild.tokenNumbers" full color="danger" round large (click)="resetScore()">
+        <button ion-button [disabled]="oTask.score < oChild.tokenNumbers" full color="danger" round large (click)="resetScore()">
           <ion-icon name="md-refresh"></ion-icon>
         </button>
       </ion-col>
