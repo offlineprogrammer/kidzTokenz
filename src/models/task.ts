@@ -5,4 +5,5 @@ export class Task {
     name: string;
     score: number;
     taskimage: string;
+    negativeReinforcement: boolean;
 }

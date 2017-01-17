@@ -16,6 +16,10 @@
         <ion-input formControlName="taskName" autofocus type="text"></ion-input>
       </ion-item>
       <ion-item class="child-item">
+        <ion-label> Negative Reinforcement</ion-label>
+        <ion-toggle color="secondary" formControlName="negReinforcement" checked="false"></ion-toggle>
+      </ion-item>
+      <ion-item class="child-item">
         <ion-row>
           <ion-col width-50>
             <button ion-button color="danger" type="button" full round large (click)="takePhoto()">

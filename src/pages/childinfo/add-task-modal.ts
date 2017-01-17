@@ -28,6 +28,7 @@ export class AddTaskModal {
 
     this.form = this.formBuilder.group({
       taskName: ['', Validators.required],
+       negReinforcement: [false, Validators.required],
 
     });
 
@@ -60,7 +61,8 @@ export class AddTaskModal {
       childId: this.oChild.childId,
       name: this.form.value.taskName,
       score: 0,
-      taskimage: this.base64Image
+      taskimage: this.base64Image,
+      negativeReinforcement: this.form.value.negReinforcement
 
     };
     if (this.form.status === 'VALID') {
