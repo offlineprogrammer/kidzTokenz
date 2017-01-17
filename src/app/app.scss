@@ -48,3 +48,17 @@ ion-avatar img  {
    
     font-size: 1.6rem;
 }
+
+.item-md ion-avatar ion-img, .item-md ion-avatar img {
+    width: inherit !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  
+}
+
+
+.item-md ion-thumbnail ion-img, .item-md ion-thumbnail img {
+  width: inherit !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
