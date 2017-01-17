@@ -79,6 +79,7 @@ export class AddKidModal {
       childId: this.generateUUID(),
       name: this.form.value.kidName,
       tokenType: this.tokenType,
+      negativetokenType: this.tokenType.replace('assets/images/','assets/images/bad-'),
       tokenNumbers: this.tokenNumbers,
       srcTokenNumbers: 'assets/images/' + this.tokenNumbers + '.png',
       isActive: true,

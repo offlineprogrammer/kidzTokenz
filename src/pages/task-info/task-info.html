@@ -36,18 +36,26 @@
     <ion-row *ngFor="let trio of tokenstriples" >
       <ion-col *ngFor="let item of trio">
        
-          <img *ngIf="item + 1 > oTask.score" class="bwimage" src="{{oChild.tokenType}}">
-          <img *ngIf="item + 1 <= oTask.score" class="center-image" src="{{oChild.tokenType}}">
+          <img *ngIf="item + 1 > oTask.score && oTask.negativeReinforcement" class="bwimage" src="{{oChild.negativetokenType}}">
+          <img *ngIf="item + 1 <= oTask.score && oTask.negativeReinforcement" class="center-image" src="{{oChild.negativetokenType}}">
+
+          <img *ngIf="item + 1 > oTask.score && !oTask.negativeReinforcement" class="bwimage" src="{{oChild.tokenType}}">
+          <img *ngIf="item + 1 <= oTask.score && !oTask.negativeReinforcement" class="center-image" src="{{oChild.tokenType}}">
        
       </ion-col>
     </ion-row>
-    <ion-row class="task-comment"  *ngIf="oTask.score < oChild.tokenNumbers">
+    <ion-row class="task-comment"  *ngIf="oTask.score < oChild.tokenNumbers && !oTask.negativeReinforcement">
           <h2>Keep up the good work</h2>
     </ion-row>
-    <ion-row class="task-comment" *ngIf="oTask.score == oChild.tokenNumbers">
-          <h2>You did it. Well done !! </h2>
-         
+    <ion-row class="task-comment" *ngIf="oTask.score == oChild.tokenNumbers && !oTask.negativeReinforcement">
+          <h2>You did it. Well done !! </h2>         
     </ion-row>
+    <ion-row class="task-comment"  *ngIf="oTask.score < oChild.tokenNumbers && oTask.negativeReinforcement">
+          <h2>You need to do better..</h2>
+    </ion-row>
+    <ion-row class="task-comment" *ngIf="oTask.score == oChild.tokenNumbers && oTask.negativeReinforcement">
+          <h2>Oh No! That's too bad </h2>         
+    </ion-row>    
      <ion-row class="task-comment" *ngIf="oTask.score == oChild.tokenNumbers && bSocialSharing">
           <button full primary round large  (click)="facebookShare()"> <ion-icon name="logo-facebook"></ion-icon></button>
     </ion-row>

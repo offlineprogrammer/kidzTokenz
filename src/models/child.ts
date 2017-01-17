@@ -5,6 +5,7 @@ export class Child {
     childimage: string;
     name: string;
     tokenType: string;
+    negativetokenType: string;
     tokenNumbers: number;
     srcTokenNumbers: string;    
     isActive: boolean;
