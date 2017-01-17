@@ -60,7 +60,8 @@
       <h2>
       {{item.name}}
     </h2>
-      <ion-badge secondary >{{item.score}} tokenz </ion-badge>
+      <ion-badge color="secondary"  *ngIf="!item.negativeReinforcement" >{{item.score}} good tokenz </ion-badge>
+      <ion-badge color="danger" *ngIf="item.negativeReinforcement">{{item.score}} bad tokenz </ion-badge>
       <ion-icon name='ios-arrow-forward' item-right ></ion-icon>
 
       </ion-item>

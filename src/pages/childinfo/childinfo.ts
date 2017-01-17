@@ -33,6 +33,7 @@ export class ChildinfoPage {
     let modal = this.modalController.create(TokentypePage, { selectedToken: this.oChild.tokenType });
     modal.onDidDismiss(data => {
       this.oChild.tokenType = data.selectedToken;
+      this.oChild.negativetokenType = data.selectedToken.replace('assets/images/','assets/images/bad-');
       this.updateData();
     });
     modal.present();

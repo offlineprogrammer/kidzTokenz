@@ -36,7 +36,7 @@
     <ion-row *ngFor="let trio of tokenstriples" >
       <ion-col *ngFor="let item of trio">
        
-          <img *ngIf="item + 1 > oTask.score && oTask.negativeReinforcement" class="bwimage" src="{{oChild.negativetokenType}}">
+          <img *ngIf="item + 1 > oTask.score && oTask.negativeReinforcement" class="center-image" src="{{oChild.tokenType}}">
           <img *ngIf="item + 1 <= oTask.score && oTask.negativeReinforcement" class="center-image" src="{{oChild.negativetokenType}}">
 
           <img *ngIf="item + 1 > oTask.score && !oTask.negativeReinforcement" class="bwimage" src="{{oChild.tokenType}}">
