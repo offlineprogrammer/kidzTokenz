@@ -9,7 +9,9 @@ import { TokentypePage } from '../pages/tokentype/tokentype';
 import { TokennumbersPage } from '../pages/tokennumbers/tokennumbers';
 import { TaskInfoPage } from '../pages/task-info/task-info';
 import { DataService } from '../providers/data-service';
+import { AuthData } from '../providers/auth-data';
 import { Storage } from '@ionic/storage';
+import { LoginPage } from '../pages/login/login';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { Storage } from '@ionic/storage';
     TokentypePage,
     TokennumbersPage,
     TaskInfoPage,
-    AddTaskModal
+    AddTaskModal,
+    LoginPage
   ],
   imports: [
     IonicModule.forRoot(KidzTokenz)
@@ -34,8 +37,9 @@ import { Storage } from '@ionic/storage';
     TokentypePage,
     TokennumbersPage,
     TaskInfoPage,
-    AddTaskModal
+    AddTaskModal,
+    LoginPage
   ],
-  providers: [Storage,DataService,{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [Storage,DataService,AuthData,{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}
