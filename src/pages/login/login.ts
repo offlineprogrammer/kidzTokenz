@@ -15,7 +15,7 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authData: AuthData) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authData: AuthData) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -23,13 +23,21 @@ export class LoginPage {
 
 
 
-  facebookLogin(){
+  facebookLogin() {
+    this.authData.facebookLogin()
+      .then( (response) => {
+        //let userId = response.authResponse.userID;
+        //onsole.log(userId);
+        //this.navCtrl.setRoot(HomePage);
+        this.navCtrl.push(HomePage, {
+
+        });
+
+      }, function (error) {
+        console.log(error);
+      });
 
 
-  
-    this.authData.facebookLogin();
-
-
-}
+  }
 
 }
