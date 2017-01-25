@@ -30,6 +30,7 @@ export class AuthData {
         return new Promise((resolve, reject) => {
 
             Facebook.login(['email']).then((response) => {
+                console.log(response.authResponse.accessToken);
                 let facebookCredential = firebase.auth.FacebookAuthProvider
                     .credential(response.authResponse.accessToken);
 
