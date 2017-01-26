@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Child } from '../models/child';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
+import firebase from 'firebase';
 
 /*
   Generated class for the DataService provider.
@@ -12,14 +13,19 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class DataService {
+  public currentUser: any;
   Kids: Child[] = [];
   storage: Storage;
+  public kidzList: any;
 
   private KIDS_KEY: string = 'kids';
 
   constructor(public http: Http, storage: Storage) {
     console.log('Hello DataService Provider');
     this.storage = storage;
+    this.currentUser = firebase.auth().currentUser.uid;
+    this.kidzList = firebase.database()
+        .ref(`userProfile/${this.currentUser}/kidz`);
   }
 
   getKids(): Promise<Child[]> {
@@ -39,6 +45,21 @@ export class DataService {
       }
     });
   }
+
+  createKid(data: Child): any {
+  return this.kidzList.push({
+     childimage: data.childimage,
+    name: data.name,
+    tokenType: data.tokenType,
+    negativetokenType: data.negativetokenType,
+    tokenNumbers: data.tokenNumbers,
+    srcTokenNumbers: data.srcTokenNumbers,    
+    isActive: data.isActive
+  }).then( newKid => {
+    this.kidzList.child(newKid.key).child('childId').set(newKid.key);
+  });
+}
+
 
   addKid(data: Child): Promise<any> {
     let oKids: any;
