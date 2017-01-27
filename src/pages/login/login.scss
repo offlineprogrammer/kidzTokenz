@@ -1,3 +1,103 @@
 page-login {
 
+
+.login-content {
+        // display: flex;
+        //flex-direction: column;
+       // background: url('../assets/images/green-background.png') no-repeat center center fixed !important;
+        
+        background-size: cover;
+        font-family: 'Open Sans', sans-serif !important;
+        color: black !important;
+    }
+
+   .login-header {
+        background-color: #3D8A4C !important;
+        box-shadow: 0 0 2px 2px #FFFFFF;
+        border-radius: 0 8px;
+       // padding: 5px !important;
+        padding-bottom: 0 !important;
+        margin: 10px 2px 2px 1px;
+        font-weight: bold;
+        color: #FFFFFF;
+        font-size: 10px;
+
+        width: 200px;
+    height: 200px;
+    background-image: url("./assets/images/storeicon.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+      margin: auto;
+
+         
+    
+    }
+
+
+    /*.login-header img {
+    display: block;
+    margin: auto;
+ 
+}*/
+
+.padded-multiline { 
+  line-height: 1.4; 
+  padding: 2px 0; 
+  //width: 400px;
+  margin: 20px auto;
+}
+.padded-multiline span { 
+ // background-color: #c0c;
+ font-family: "bebas-neue",sans-serif!important;
+  color: #FFC715; 
+  
+  display: inline;
+  padding: 0.45rem;
+  font-size: 20px;
+  
+  /* Needs prefixing */
+  box-decoration-break: clone;
+}
+
+.login-text {
+    padding: 10px 0 10px;
+    text-align: center;
+      margin: 10px 2px 2px 1px;
+      word-wrap: break-word;
+}
+
+.login-text h2 {
+    font-family: "bebas-neue",sans-serif!important;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #444;
+    font-size: 10px;
+    word-wrap: break-word;
+    //line-height: 1;
+}
+
+
+
+       .login-item {
+        background-color: #3F5996 !important;
+        box-shadow: 0 0 2px 2px #FFFFFF;
+        border-radius: 0 8px;
+       // padding: 5px !important;
+        padding-bottom: 0 !important;
+        margin: 10px 2px 2px 1px;
+        font-weight: bold;
+        color: #FFFFFF;
+        font-size: 10px;
+        height: 50px;
+    }
+
+
+.login-item img {
+    display: block;
+    margin: auto;
+ 
+}
+
 }

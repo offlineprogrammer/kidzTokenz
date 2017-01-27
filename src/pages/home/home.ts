@@ -24,6 +24,7 @@ export class HomePage {
   }
 
   addNewKid(): void {
+
     let modal = this.modalController.create(AddKidModal);
     modal.onDidDismiss(data => {
       this.dataService.getKids()

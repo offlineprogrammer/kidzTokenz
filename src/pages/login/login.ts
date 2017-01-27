@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
 import { HomePage } from '../home/home';
+import { Facebook } from 'ionic-native';
 
 /*
   Generated class for the Login page.
@@ -21,23 +22,24 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-
-
   facebookLogin() {
-    this.authData.facebookLogin()
-      .then( (response) => {
-        //let userId = response.authResponse.userID;
-        //onsole.log(userId);
-        //this.navCtrl.setRoot(HomePage);
-        this.navCtrl.push(HomePage, {
+    Facebook.login(['email']).then((response) => {
 
+
+      this.authData.loginUser(response.authResponse.accessToken)
+        .then(response => {
+          console.log('test');
+          this.navCtrl.push(HomePage, {});
+
+        }, function (error) {
+          console.log(error);
         });
 
-      }, function (error) {
-        console.log(error);
-      });
 
 
+    }).catch((error) => { console.log(error) });
   }
+
+
 
 }

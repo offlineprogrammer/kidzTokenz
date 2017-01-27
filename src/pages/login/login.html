@@ -1,7 +1,6 @@
 <ion-header>
   <ion-navbar color="danger">
-    <ion-title>Kidz Tokenz</ion-title>
-
+   
     <ion-buttons end>
       <button ion-button icon-only (click)="showInfo()">
         <ion-icon name="information-circle"></ion-icon>
@@ -9,12 +8,34 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
+<ion-content padding class="login-content">
+  <!-- <section class="login-container">
+    <div class="col header text-center">
+      <img src="./assets/images/storeicon.png" />
+    </div>
+    <div class="col  button-row text-center">
+      <img src="./assets/images/facebook-button.png" />
+    </div>
+  </section>-->
+ 
+  <ion-list class="login-container">
+    
+     <ion-item class="login-header">
+     <img src="./assets/images/storeicon.png" />
+    </ion-item>
 
+    
+ <br/> 
 
-<ion-content padding>
+    <h1 class="padded-multiline">
+      
+  <span>Want to make your child adopt good behavior?</span>
+</h1>
 
-  <button ion-button center (click)="facebookLogin()">
-    Log In with Facebook
-  </button>
+    
 
+    <ion-item class="login-item" (click)="facebookLogin()">
+     <img src="./assets/images/facebook.png" />
+    </ion-item>
+  </ion-list>
 </ion-content>

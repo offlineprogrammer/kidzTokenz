@@ -22,8 +22,11 @@ export class AuthData {
     }
 
 
-    loginUser(email: string, password: string): any {
-        return this.fireAuth.signInWithEmailAndPassword(email, password);
+    loginUser(accessToken: string): any {
+          let facebookCredential = firebase.auth.FacebookAuthProvider
+                    .credential(accessToken);
+                    console.log("Firebase  ");
+        return this.fireAuth.signInWithCredential(facebookCredential)
     }
 
     facebookLogin(): Promise<any> {

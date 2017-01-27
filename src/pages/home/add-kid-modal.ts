@@ -83,12 +83,12 @@ export class AddKidModal {
       tokenNumbers: this.tokenNumbers,
       srcTokenNumbers: 'assets/images/' + this.tokenNumbers + '.png',
       isActive: true,
-      childimage: this.base64Image,
+      childimage: "assets/images/5.png",
       tasks: []
 
     };
     if (this.form.status === 'VALID') {
-      this.dataService.addKid(newkid)
+      this.dataService.createKid(newkid)
         .then(() => {
           /*       this.dataService.updateKids();
                  let oGAEvent: GAEvent;
