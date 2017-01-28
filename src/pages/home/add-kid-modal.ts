@@ -5,6 +5,7 @@ import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
 import { TokentypePage } from '../tokentype/tokentype';
 import { TokennumbersPage } from '../tokennumbers/tokennumbers';
+import { Camera } from 'ionic-native';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class AddKidModal {
   srcTokenNumbers: string = 'assets/images/5.png';
   tokenNumbers: number = 5;
   base64Image: string;
+  kidPicture: any;
 
 
   constructor(public navCtrl: NavController,
@@ -30,6 +32,7 @@ export class AddKidModal {
       kidName: ['', Validators.required],
 
     });
+    this.kidPicture = null;
 
   }
 
@@ -79,11 +82,11 @@ export class AddKidModal {
       childId: this.generateUUID(),
       name: this.form.value.kidName,
       tokenType: this.tokenType,
-      negativetokenType: this.tokenType.replace('assets/images/','assets/images/bad-'),
+      negativetokenType: this.tokenType.replace('assets/images/', 'assets/images/bad-'),
       tokenNumbers: this.tokenNumbers,
       srcTokenNumbers: 'assets/images/' + this.tokenNumbers + '.png',
       isActive: true,
-      childimage: "assets/images/5.png",
+      childimage: this.base64Image,
       tasksCount: 0,
       tasks: []
 
@@ -105,7 +108,34 @@ export class AddKidModal {
     };
   }
 
+  takePhoto() {
+    Camera.getPicture({
+      destinationType: Camera.DestinationType.DATA_URL,
+      targetWidth: 1000,
+      targetHeight: 1000
+    }).then((imageData) => {
+      // imageData is a base64 encoded string
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      console.log(err);
+    });
+  }
 
 
+  openGallery(): void {
+    let cameraOptions = {
+      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: Camera.DestinationType.FILE_URI,
+      quality: 100,
+      targetWidth: 1000,
+      targetHeight: 1000,
+      encodingType: Camera.EncodingType.JPEG,
+      correctOrientation: true
+    };
+
+    Camera.getPicture(cameraOptions)
+      .then(file_uri => this.base64Image = file_uri,
+      err => console.log(err));
+  }
 
 }
