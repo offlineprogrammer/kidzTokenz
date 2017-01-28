@@ -25,31 +25,58 @@ export class DataService {
     this.storage = storage;
     this.currentUser = firebase.auth().currentUser.uid;
     this.kidzList = firebase.database()
-        .ref(`userProfile/${this.currentUser}/kidz`);
+      .ref(`userProfile/${this.currentUser}/kidz`);
   }
+
+
+  getKidsList(): any {
+    return this.kidzList;
+  }
+
 
   getKids(): Promise<Child[]> {
     let oKids: any;
     return new Promise(resolve => {
-     
-      resolve(this.kidzList);
+
+      this.kidzList.on('value', snapshot => {
+        let rawList = [];
+        snapshot.forEach(snap => {
+          rawList.push({
+            childId: snap.key,
+            name: snap.val().name,
+            tokenType: snap.val().tokenType,
+            negativetokenType: snap.val().negativetokenType,
+            tokenNumbers: snap.val().tokenNumbers,
+            srcTokenNumbers: snap.val().srcTokenNumbers,
+            isActive: snap.val().isActive,
+            childimage: snap.val().childimage,
+            tasksCount: snap.val().tasksCount
+
+          });
+        });
+        resolve(rawList);
+        //  this.kids = rawList;
+      });
 
     });
   }
 
+
+
+
   createKid(data: Child): any {
-  return this.kidzList.push({
-     childimage: data.childimage,
-    name: data.name,
-    tokenType: data.tokenType,
-    negativetokenType: data.negativetokenType,
-    tokenNumbers: data.tokenNumbers,
-    srcTokenNumbers: data.srcTokenNumbers,    
-    isActive: data.isActive
-  }).then( newKid => {
-    this.kidzList.child(newKid.key).child('childId').set(newKid.key);
-  });
-}
+    return this.kidzList.push({
+      childimage: data.childimage,
+      name: data.name,
+      tokenType: data.tokenType,
+      negativetokenType: data.negativetokenType,
+      tokenNumbers: data.tokenNumbers,
+      srcTokenNumbers: data.srcTokenNumbers,
+      isActive: data.isActive
+    }).then(newKid => {
+      this.kidzList.child(newKid.key).child('childId').set(newKid.key);
+    });
+  }
 
 
   addKid(data: Child): Promise<any> {
@@ -96,21 +123,21 @@ export class DataService {
 
   }
 
-    updateKids(): Promise < any > {
-        let oKids: any;
-        return new Promise((resolve, reject) => {
-            if (typeof this.Kids === 'undefined') {
-                this.Kids = [];
+  updateKids(): Promise<any> {
+    let oKids: any;
+    return new Promise((resolve, reject) => {
+      if (typeof this.Kids === 'undefined') {
+        this.Kids = [];
 
-            }
+      }
 
-            this.saveData(this.Kids, this.KIDS_KEY);
-            resolve('Done');
+      this.saveData(this.Kids, this.KIDS_KEY);
+      resolve('Done');
 
-        }).catch((error) => {
-            //this.logError(error);
-            // reject('Only available on a device');
-        });
-    }
+    }).catch((error) => {
+      //this.logError(error);
+      // reject('Only available on a device');
+    });
+  }
 
 }

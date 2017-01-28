@@ -17,17 +17,38 @@ export class HomePage {
     private modalController: ModalController,
     public dataService: DataService) {
 
+    /*    this.dataService.getKidsList().on('value', snapshot => {
+          let rawList = [];
+          snapshot.forEach(snap => {
+            rawList.push({
+              childId: snap.key,
+              name: snap.val().name,
+              tokenType: snap.val().tokenType,
+              negativetokenType: snap.val().negativetokenType,
+              tokenNumbers: snap.val().tokenNumbers,
+              srcTokenNumbers: snap.val().srcTokenNumbers,
+              isActive: snap.val().isActive,
+              childimage: snap.val().childimage,
+              tasks: snap.val().tasks
+    
+            });
+          });
+          this.kids = rawList;
+        });*/
+
     this.dataService.getKids()
       .then((response) => {
         this.kids = response;
       });
+
+
   }
 
   addNewKid(): void {
 
     let modal = this.modalController.create(AddKidModal);
     modal.onDidDismiss(data => {
-      this.dataService.getKids()
+      this.dataService.getKidsList()
         .then((response) => {
           this.kids = response;
         });

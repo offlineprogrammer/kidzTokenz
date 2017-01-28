@@ -84,6 +84,7 @@ export class AddKidModal {
       srcTokenNumbers: 'assets/images/' + this.tokenNumbers + '.png',
       isActive: true,
       childimage: "assets/images/5.png",
+      tasksCount: 0,
       tasks: []
 
     };

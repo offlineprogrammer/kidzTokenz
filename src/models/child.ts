@@ -9,6 +9,7 @@ export class Child {
     tokenNumbers: number;
     srcTokenNumbers: string;    
     isActive: boolean;
+    tasksCount: number;
     tasks: Task[];
    
 }
