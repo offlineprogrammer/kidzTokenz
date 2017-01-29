@@ -88,7 +88,7 @@ export class AddKidModal {
       isActive: true,
       childimage: this.base64Image,
       tasksCount: 0,
-      kidPhoto:'',
+      kidPhoto: '',
       tasks: []
 
     };
@@ -109,52 +109,48 @@ export class AddKidModal {
     };
   }
 
-  takePicture(){
-  Camera.getPicture({
-    quality : 95,
-    destinationType : Camera.DestinationType.DATA_URL,
-    sourceType : Camera.PictureSourceType.CAMERA,
-    allowEdit : true,
-    encodingType: Camera.EncodingType.PNG,
-    targetWidth: 500,
-    targetHeight: 500,
-    saveToPhotoAlbum: true
-  }).then(imageData => {
-    this.kidPicture = imageData;
-     this.base64Image = 'data:image/jpeg;base64,' + imageData;
-  }, error => {
-    console.log("ERROR -> " + JSON.stringify(error));
-  });
-}
-
-  takePhoto() {
+  takePicture() {
     Camera.getPicture({
+      quality: 95,
       destinationType: Camera.DestinationType.DATA_URL,
-      targetWidth: 1000,
-      targetHeight: 1000
-    }).then((imageData) => {
-      // imageData is a base64 encoded string
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-      console.log(err);
+      sourceType: Camera.PictureSourceType.CAMERA,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.PNG,
+      targetWidth: 500,
+      targetHeight: 500,
+      saveToPhotoAlbum: true
+    }).then(imageData => {
+      this.base64Image = 'data:image/png;base64,' + imageData;
+      this.kidPicture = imageData;
+
+    }, error => {
+      console.log("ERROR -> " + JSON.stringify(error));
     });
   }
+
 
 
   openGallery(): void {
     let cameraOptions = {
       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: Camera.DestinationType.FILE_URI,
+      destinationType: Camera.DestinationType.DATA_URL,
       quality: 100,
-      targetWidth: 1000,
-      targetHeight: 1000,
-      encodingType: Camera.EncodingType.JPEG,
+      targetWidth: 500,
+      targetHeight: 500,
+      encodingType: Camera.EncodingType.PNG,
       correctOrientation: true
     };
 
-    Camera.getPicture(cameraOptions)
-      .then(file_uri => this.base64Image = file_uri,
-      err => console.log(err));
+    Camera.getPicture(cameraOptions).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.kidPicture = imageData;
+    }, (err) => {
+      // Handle error
+    });
+
+
   }
 
 }
