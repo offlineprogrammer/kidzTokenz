@@ -88,11 +88,12 @@ export class AddKidModal {
       isActive: true,
       childimage: this.base64Image,
       tasksCount: 0,
+      kidPhoto:'',
       tasks: []
 
     };
     if (this.form.status === 'VALID') {
-      this.dataService.createKid(newkid)
+      this.dataService.createKid(newkid, this.kidPicture)
         .then(() => {
           /*       this.dataService.updateKids();
                  let oGAEvent: GAEvent;
@@ -107,6 +108,24 @@ export class AddKidModal {
         });
     };
   }
+
+  takePicture(){
+  Camera.getPicture({
+    quality : 95,
+    destinationType : Camera.DestinationType.DATA_URL,
+    sourceType : Camera.PictureSourceType.CAMERA,
+    allowEdit : true,
+    encodingType: Camera.EncodingType.PNG,
+    targetWidth: 500,
+    targetHeight: 500,
+    saveToPhotoAlbum: true
+  }).then(imageData => {
+    this.kidPicture = imageData;
+     this.base64Image = 'data:image/jpeg;base64,' + imageData;
+  }, error => {
+    console.log("ERROR -> " + JSON.stringify(error));
+  });
+}
 
   takePhoto() {
     Camera.getPicture({

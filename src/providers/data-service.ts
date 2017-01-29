@@ -17,6 +17,7 @@ export class DataService {
   Kids: Child[] = [];
   storage: Storage;
   public kidzList: any;
+  public kidzPhotosRef: any;
 
   private KIDS_KEY: string = 'kids';
 
@@ -26,6 +27,7 @@ export class DataService {
     this.currentUser = firebase.auth().currentUser.uid;
     this.kidzList = firebase.database()
       .ref(`userProfile/${this.currentUser}/kidz`);
+    this.kidzPhotosRef = firebase.storage().ref('/kidzPhotos/');
   }
 
 
@@ -50,7 +52,9 @@ export class DataService {
             srcTokenNumbers: snap.val().srcTokenNumbers,
             isActive: snap.val().isActive,
             childimage: snap.val().childimage,
-            tasksCount: snap.val().tasksCount
+            tasksCount: snap.val().tasksCount,
+            kidPhoto:snap.val().kidPhoto
+
 
           });
         });
@@ -64,7 +68,7 @@ export class DataService {
 
 
 
-  createKid(data: Child): any {
+  createKid(data: Child, kidPicture): any {
     return this.kidzList.push({
       childimage: data.childimage,
       name: data.name,
@@ -72,9 +76,18 @@ export class DataService {
       negativetokenType: data.negativetokenType,
       tokenNumbers: data.tokenNumbers,
       srcTokenNumbers: data.srcTokenNumbers,
-      isActive: data.isActive
+      isActive: data.isActive,
+      tasksCount: data.tasksCount
     }).then(newKid => {
       this.kidzList.child(newKid.key).child('childId').set(newKid.key);
+      if (data.childimage != null) {
+        this.kidzPhotosRef.child(newKid.key).child('kidPhoto.png')
+          .putString(kidPicture, 'base64', { contentType: 'image/png' })
+          .then((savedPicture) => {
+            this.kidzList.child(newKid.key).child('kidPhoto')
+              .set(savedPicture.downloadURL);
+          });
+      }
     });
   }
 
