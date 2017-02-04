@@ -111,7 +111,7 @@ export class AddKidModal {
 
   takePicture() {
     Camera.getPicture({
-      quality: 95,
+      quality: 100,
       destinationType: Camera.DestinationType.DATA_URL,
       sourceType: Camera.PictureSourceType.CAMERA,
       allowEdit: true,
