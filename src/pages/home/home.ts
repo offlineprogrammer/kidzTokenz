@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Child } from '../../models/child';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController,LoadingController  } from 'ionic-angular';
 import { AddKidModal } from './add-kid-modal';
 import { DataService } from '../../providers/data-service';
 import { ChildinfoPage } from '../childinfo/childinfo';
@@ -15,7 +15,8 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
     private modalController: ModalController,
-    public dataService: DataService) {
+    public dataService: DataService,
+    public loadingCtrl: LoadingController) {
     this.dataService.getKids()
       .then((response) => {
         this.kids = response;
@@ -41,6 +42,14 @@ export class HomePage {
       child: data
     });
     console.log(data);
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 3000
+    });
+    loader.present();
   }
 
 
