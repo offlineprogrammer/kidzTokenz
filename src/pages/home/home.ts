@@ -21,16 +21,11 @@ export class HomePage {
     public storageService: StorageData,
     public userService: UserData,
     public loadingCtrl: LoadingController) {
-      if (this.userService.isGuestUser){
-
-      }else {
-            this.dataService.getKids()
+       this.dataService.getKids()
       .then((response) => {
         this.kids = response;
       });
 
-
-      }
 
 
 

@@ -16,15 +16,15 @@ import { UserData } from './user-data';
 export class DataService {
   public currentUser: any;
   Kids: Child[] = [];
-  storage: Storage;
+ 
   public kidzList: any;
   public kidzPhotosRef: any;
 
   private KIDS_KEY: string = 'kids';
 
-  constructor(public http: Http, storage: Storage, public userService: UserData, ) {
+  constructor(public http: Http,  public storage: Storage, public userService: UserData, ) {
     console.log('Hello DataService Provider');
-    this.storage = storage;
+  
     if (this.userService.isGuestUser) {
 
     } else {
@@ -46,8 +46,19 @@ export class DataService {
 
   getKids(): Promise<Child[]> {
     let oKids: any;
-    return new Promise(resolve => {
 
+    return new Promise(resolve => {
+      if (this.userService.isGuestUser) {
+
+        this.storage.get(this.KIDS_KEY).then((val) => {
+          console.log(val);
+          this.kidzList = JSON.parse(val);
+          // this.Kids = oKids;
+
+          resolve(this.kidzList);
+        })
+
+      } else {
       this.kidzList.on('value', snapshot => {
         let rawList = [];
         snapshot.forEach(snap => {
@@ -69,6 +80,7 @@ export class DataService {
         resolve(rawList);
         //  this.kids = rawList;
       });
+    }
 
     });
   }
@@ -77,6 +89,17 @@ export class DataService {
 
 
   createKid(data: Child, kidPicture): any {
+    if (this.userService.isGuestUser) {
+      if (typeof this.kidzList === 'undefined') {
+        this.kidzList = [];
+
+      }
+      this.kidzList.push(data);
+      this.saveData(this.kidzList, this.KIDS_KEY);
+      return;
+
+    }
+
     return this.kidzList.push({
       childimage: data.childimage,
       name: data.name,

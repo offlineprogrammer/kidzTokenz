@@ -104,6 +104,7 @@ export class AddKidModal {
                    value: newkid.tokenNumbers,
                  };
                  this.gaService.trackEvent(oGAEvent);*/
+                  console.log("done" );
           this.close();
         });
     };
