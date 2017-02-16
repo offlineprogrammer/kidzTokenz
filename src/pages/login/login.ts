@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
+import { UserData } from '../../providers/user-data';
 import { HomePage } from '../home/home';
 import { Facebook } from 'ionic-native';
 
@@ -16,7 +17,7 @@ import { Facebook } from 'ionic-native';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authData: AuthData) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authData: AuthData, public userData: UserData) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -40,6 +41,10 @@ export class LoginPage {
     }).catch((error) => { console.log(error) });
   }
 
+  contineAsGuest() {
+    this.userData.setGuestUser(true);
+    this.navCtrl.push(HomePage, {});
+  }
 
 
 }

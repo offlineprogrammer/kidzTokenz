@@ -3,7 +3,9 @@ import { Child } from '../../models/child';
 import { NavController, ModalController,LoadingController  } from 'ionic-angular';
 import { AddKidModal } from './add-kid-modal';
 import { DataService } from '../../providers/data-service';
+import { StorageData } from '../../providers/storage-data';
 import { ChildinfoPage } from '../childinfo/childinfo';
+import { UserData } from '../../providers/user-data';
 
 
 @Component({
@@ -16,11 +18,20 @@ export class HomePage {
   constructor(public navCtrl: NavController,
     private modalController: ModalController,
     public dataService: DataService,
+    public storageService: StorageData,
+    public userService: UserData,
     public loadingCtrl: LoadingController) {
-    this.dataService.getKids()
+      if (this.userService.isGuestUser){
+
+      }else {
+            this.dataService.getKids()
       .then((response) => {
         this.kids = response;
       });
+
+
+      }
+
 
 
   }

@@ -14,11 +14,13 @@ export class AuthData {
 
     public fireAuth: any;
     public userProfile: any;
+    public isGuestUser: boolean;
 
     constructor(public http: Http) {
         console.log('Hello AuthData Provider');
         this.fireAuth = firebase.auth();
         this.userProfile = firebase.database().ref('/userProfile');
+        this.isGuestUser = false;
     }
 
 
@@ -28,6 +30,11 @@ export class AuthData {
                     console.log("Firebase  ");
         return this.fireAuth.signInWithCredential(facebookCredential)
     }
+
+   setGuestUser(): void {
+         this.isGuestUser = true;
+    }
+
 
     facebookLogin(): Promise<any> {
         return new Promise((resolve, reject) => {

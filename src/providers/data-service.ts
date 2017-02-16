@@ -4,6 +4,7 @@ import { Child } from '../models/child';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import firebase from 'firebase';
+import { UserData } from './user-data';
 
 /*
   Generated class for the DataService provider.
@@ -21,13 +22,20 @@ export class DataService {
 
   private KIDS_KEY: string = 'kids';
 
-  constructor(public http: Http, storage: Storage) {
+  constructor(public http: Http, storage: Storage, public userService: UserData, ) {
     console.log('Hello DataService Provider');
     this.storage = storage;
-    this.currentUser = firebase.auth().currentUser.uid;
-    this.kidzList = firebase.database()
-      .ref(`userProfile/${this.currentUser}/kidz`);
-    this.kidzPhotosRef = firebase.storage().ref('/kidzPhotos/');
+    if (this.userService.isGuestUser) {
+
+    } else {
+      this.currentUser = firebase.auth().currentUser.uid;
+      this.kidzList = firebase.database()
+        .ref(`userProfile/${this.currentUser}/kidz`);
+      this.kidzPhotosRef = firebase.storage().ref('/kidzPhotos/');
+
+    }
+
+
   }
 
 
@@ -53,7 +61,7 @@ export class DataService {
             isActive: snap.val().isActive,
             childimage: snap.val().childimage,
             tasksCount: snap.val().tasksCount,
-            kidPhoto:snap.val().kidPhoto
+            kidPhoto: snap.val().kidPhoto
 
 
           });
