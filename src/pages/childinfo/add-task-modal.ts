@@ -67,6 +67,7 @@ export class AddTaskModal {
     };
     if (this.form.status === 'VALID') {
       this.oChild.tasks.push(newtask);
+      this.oChild.tasksCount+=1; 
       this.dataService.updateKids()
         .then(() => {
           // let oGAEvent: GAEvent;
