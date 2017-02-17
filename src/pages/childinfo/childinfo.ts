@@ -33,7 +33,7 @@ export class ChildinfoPage {
     let modal = this.modalController.create(TokentypePage, { selectedToken: this.oChild.tokenType });
     modal.onDidDismiss(data => {
       this.oChild.tokenType = data.selectedToken;
-      this.oChild.negativetokenType = data.selectedToken.replace('assets/images/','assets/images/bad-');
+      this.oChild.negativetokenType = data.selectedToken.replace('assets/images/', 'assets/images/bad-');
       this.updateData();
     });
     modal.present();
@@ -56,13 +56,20 @@ export class ChildinfoPage {
 
   }
 
-   itemSelected(data: Task): void {
-      this.navCtrl.push(TaskInfoPage, {task: data, child: this.oChild});
-  
-      console.log(data);
-   
+  itemSelected(data: Task): void {
+    this.navCtrl.push(TaskInfoPage, { task: data, child: this.oChild });
+
+    console.log(data);
+
   }
 
+  deleteChild(data: Child): void {
+
+    this.dataService.deleteKid(data)
+      .then(() => {
+        this.navCtrl.pop();
+      });
+  }
 
 
   private updateData(): void {

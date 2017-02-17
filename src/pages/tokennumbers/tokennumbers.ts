@@ -17,7 +17,7 @@ export class TokennumbersPage {
   tokenNumbersArray: string[];
   constructor(private dataService: DataService, public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, ) {
     this.tokenNumbers = navParams.get('tokenNumbers');
-    this.tokenNumbersArray = this.fillArrayWithNumbers(9);
+    this.tokenNumbersArray = this.fillArrayWithNumbers(10);
   }
 
   ionViewDidLoad() {

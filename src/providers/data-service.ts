@@ -181,6 +181,31 @@ export class DataService {
 
   }
 
+  deleteKid(data: Child): Promise < any > {
+
+        return new Promise((resolve, reject) => {
+            if (typeof this.kidzList === 'undefined') {
+                this.kidzList = [];
+
+            }
+            let index = this.kidzList.indexOf(data);
+
+            if (index > -1) {
+                this.kidzList.splice(index, 1);
+            }
+
+
+
+
+            this.saveData(this.kidzList, this.KIDS_KEY);
+            resolve('Done');
+
+        }).catch((error) => {
+            // reject('Only available on a device');
+        });
+    }
+
+
   updateKids(): Promise<any> {
     let oKids: any;
     return new Promise((resolve, reject) => {
