@@ -16,15 +16,15 @@ import { UserData } from './user-data';
 export class DataService {
   public currentUser: any;
   Kids: Child[] = [];
- 
+
   public kidzList: any;
   public kidzPhotosRef: any;
 
   private KIDS_KEY: string = 'kids';
 
-  constructor(public http: Http,  public storage: Storage, public userService: UserData, ) {
+  constructor(public http: Http, public storage: Storage, public userService: UserData, ) {
     console.log('Hello DataService Provider');
-  
+
     if (this.userService.isGuestUser) {
 
     } else {
@@ -59,28 +59,28 @@ export class DataService {
         })
 
       } else {
-      this.kidzList.on('value', snapshot => {
-        let rawList = [];
-        snapshot.forEach(snap => {
-          rawList.push({
-            childId: snap.key,
-            name: snap.val().name,
-            tokenType: snap.val().tokenType,
-            negativetokenType: snap.val().negativetokenType,
-            tokenNumbers: snap.val().tokenNumbers,
-            srcTokenNumbers: snap.val().srcTokenNumbers,
-            isActive: snap.val().isActive,
-            childimage: snap.val().childimage,
-            tasksCount: snap.val().tasksCount,
-            kidPhoto: snap.val().kidPhoto
+        this.kidzList.on('value', snapshot => {
+          let rawList = [];
+          snapshot.forEach(snap => {
+            rawList.push({
+              childId: snap.key,
+              name: snap.val().name,
+              tokenType: snap.val().tokenType,
+              negativetokenType: snap.val().negativetokenType,
+              tokenNumbers: snap.val().tokenNumbers,
+              srcTokenNumbers: snap.val().srcTokenNumbers,
+              isActive: snap.val().isActive,
+              childimage: snap.val().childimage,
+              tasksCount: snap.val().tasksCount,
+              kidPhoto: snap.val().kidPhoto
 
 
+            });
           });
+          resolve(rawList);
+          //  this.kids = rawList;
         });
-        resolve(rawList);
-        //  this.kids = rawList;
-      });
-    }
+      }
 
     });
   }
@@ -88,38 +88,52 @@ export class DataService {
 
 
 
-  createKid(data: Child, kidPicture): any {
-    if (this.userService.isGuestUser) {
-      if (typeof this.kidzList === 'undefined') {
-        this.kidzList = [];
+  createKid(data: Child, kidPicture): Promise<any> {
 
+    return new Promise(resolve => {
+
+      if (this.userService.isGuestUser) {
+        if (typeof this.kidzList === 'undefined') {
+          this.kidzList = [];
+
+        }
+        this.kidzList.push(data);
+        this.saveData(this.kidzList, this.KIDS_KEY);
+        resolve("Done");
+
+      } else {
+
+        this.kidzList.push({
+          childimage: data.childimage,
+          name: data.name,
+          tokenType: data.tokenType,
+          negativetokenType: data.negativetokenType,
+          tokenNumbers: data.tokenNumbers,
+          srcTokenNumbers: data.srcTokenNumbers,
+          isActive: data.isActive,
+          tasksCount: data.tasksCount
+        }).then(newKid => {
+          this.kidzList.child(newKid.key).child('childId').set(newKid.key);
+          if (data.childimage != null) {
+            this.kidzPhotosRef.child(newKid.key).child('kidPhoto.png')
+              .putString(kidPicture, 'base64', { contentType: 'image/png' })
+              .then((savedPicture) => {
+                this.kidzList.child(newKid.key).child('kidPhoto')
+                  .set(savedPicture.downloadURL);
+              });
+          }
+        });
       }
-      this.kidzList.push(data);
-      this.saveData(this.kidzList, this.KIDS_KEY);
-      return;
 
-    }
+      resolve("Done");
 
-    return this.kidzList.push({
-      childimage: data.childimage,
-      name: data.name,
-      tokenType: data.tokenType,
-      negativetokenType: data.negativetokenType,
-      tokenNumbers: data.tokenNumbers,
-      srcTokenNumbers: data.srcTokenNumbers,
-      isActive: data.isActive,
-      tasksCount: data.tasksCount
-    }).then(newKid => {
-      this.kidzList.child(newKid.key).child('childId').set(newKid.key);
-      if (data.childimage != null) {
-        this.kidzPhotosRef.child(newKid.key).child('kidPhoto.png')
-          .putString(kidPicture, 'base64', { contentType: 'image/png' })
-          .then((savedPicture) => {
-            this.kidzList.child(newKid.key).child('kidPhoto')
-              .set(savedPicture.downloadURL);
-          });
-      }
     });
+
+
+
+
+
+
   }
 
 
