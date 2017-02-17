@@ -99,6 +99,7 @@ export class TaskInfoPage {
 
     if (index > -1) {
       this.oChild.tasks.splice(index, 1);
+      this.oChild.tasksCount -=1;
     }
     this.updateData();
 
