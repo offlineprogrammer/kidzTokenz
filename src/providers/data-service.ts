@@ -15,7 +15,7 @@ import { UserData } from './user-data';
 @Injectable()
 export class DataService {
   public currentUser: any;
- // Kids: Child[] = [];
+  // Kids: Child[] = [];
 
   public kidzList: any;
   public kidzPhotosRef: any;
@@ -98,6 +98,12 @@ export class DataService {
           this.kidzList = [];
 
         }
+
+        if (this.kidzList === null) {
+          this.kidzList = [];
+
+        }
+
         this.kidzList.push(data);
         this.saveData(this.kidzList, this.KIDS_KEY);
         resolve("Done");
