@@ -15,7 +15,7 @@ import { UserData } from './user-data';
 @Injectable()
 export class DataService {
   public currentUser: any;
-  Kids: Child[] = [];
+ // Kids: Child[] = [];
 
   public kidzList: any;
   public kidzPhotosRef: any;
@@ -26,6 +26,7 @@ export class DataService {
     console.log('Hello DataService Provider');
 
     if (this.userService.isGuestUser) {
+
 
     } else {
       this.currentUser = firebase.auth().currentUser.uid;
@@ -137,21 +138,6 @@ export class DataService {
   }
 
 
-  addKid(data: Child): Promise<any> {
-    let oKids: any;
-    return new Promise((resolve, reject) => {
-      if (typeof this.Kids === 'undefined') {
-        this.Kids = [];
-
-      }
-      this.Kids.push(data);
-      this.saveData(this.Kids, this.KIDS_KEY);
-      resolve('Done');
-
-    }).catch((error) => {
-      // reject('Only available on a device');
-    });
-  }
 
   private saveData(data: any, key: string) {
     if (data) {
@@ -181,40 +167,40 @@ export class DataService {
 
   }
 
-  deleteKid(data: Child): Promise < any > {
+  deleteKid(data: Child): Promise<any> {
 
-        return new Promise((resolve, reject) => {
-            if (typeof this.kidzList === 'undefined') {
-                this.kidzList = [];
+    return new Promise((resolve, reject) => {
+      if (typeof this.kidzList === 'undefined') {
+        this.kidzList = [];
 
-            }
-            let index = this.kidzList.indexOf(data);
+      }
+      let index = this.kidzList.indexOf(data);
 
-            if (index > -1) {
-                this.kidzList.splice(index, 1);
-            }
-
-
+      if (index > -1) {
+        this.kidzList.splice(index, 1);
+      }
 
 
-            this.saveData(this.kidzList, this.KIDS_KEY);
-            resolve('Done');
 
-        }).catch((error) => {
-            // reject('Only available on a device');
-        });
-    }
+
+      this.saveData(this.kidzList, this.KIDS_KEY);
+      resolve('Done');
+
+    }).catch((error) => {
+      // reject('Only available on a device');
+    });
+  }
 
 
   updateKids(): Promise<any> {
     let oKids: any;
     return new Promise((resolve, reject) => {
-      if (typeof this.Kids === 'undefined') {
-        this.Kids = [];
+      if (typeof this.kidzList === 'undefined') {
+        this.kidzList = [];
 
       }
 
-      this.saveData(this.Kids, this.KIDS_KEY);
+      this.saveData(this.kidzList, this.KIDS_KEY);
       resolve('Done');
 
     }).catch((error) => {
