@@ -8,19 +8,33 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding class="login-content">
-  <ion-list class="login-container">
-    <ion-item class="login-header">
-      <img src="./assets/images/storeicon.png" />
-    </ion-item>
-    <br/>
-    <h1 class="padded-multiline">
-      <span>Want to make your child adopt good behavior?</span>
-    </h1>
-    <ion-item class="login-item" (click)="facebookLogin()">
-      <img src="./assets/images/facebook.png" />
-    </ion-item>
-    <ion-item class="guest-item" >
-      <button ion-button class="register-btn" block clear (click)="contineAsGuest()">Continue As Guest</button>
-    </ion-item>
-  </ion-list>
+
+<ion-grid>
+ 
+      <ion-row class="header-row" >
+        <ion-col class="login-header" text-center>
+          <img src="./assets/images/storeicon.png" />
+        </ion-col>
+      </ion-row>
+ 
+     
+
+       <ion-row  class="footer-row" >
+        <ion-col text-center>
+           <img src="./assets/images/facebook.png" (click)="facebookLogin()" />
+           </ion-col>
+      </ion-row>
+ 
+  <ion-row  class="footer-row" >
+        <ion-col  text-center>
+            <button ion-button class="register-btn" block clear (click)="contineAsGuest()">Continue As Guest</button>
+           </ion-col>
+      </ion-row>
+
+ 
+    </ion-grid>
+
+
+
+ 
 </ion-content>
