@@ -4,6 +4,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
 import { Task } from '../../models/task';
+import { Camera } from 'ionic-native';
 
 @Component({
   selector: 'page-addKidModal',
@@ -81,6 +82,51 @@ export class AddTaskModal {
           this.close();
         });
     };
+
+
+  }
+
+
+   takePicture() {
+    Camera.getPicture({
+      quality: 100,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.CAMERA,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.PNG,
+      targetWidth: 500,
+      targetHeight: 500,
+      saveToPhotoAlbum: true
+    }).then(imageData => {
+      this.base64Image = 'data:image/png;base64,' + imageData;
+     // this.kidPicture = imageData;
+
+    }, error => {
+      console.log("ERROR -> " + JSON.stringify(error));
+    });
+  }
+
+
+
+  openGallery(): void {
+    let cameraOptions = {
+      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: Camera.DestinationType.DATA_URL,
+      quality: 100,
+      targetWidth: 500,
+      targetHeight: 500,
+      encodingType: Camera.EncodingType.PNG,
+      correctOrientation: true
+    };
+
+    Camera.getPicture(cameraOptions).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+    //  this.kidPicture = imageData;
+    }, (err) => {
+      // Handle error
+    });
 
 
   }
