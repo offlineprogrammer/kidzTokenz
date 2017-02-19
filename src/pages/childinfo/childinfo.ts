@@ -7,6 +7,7 @@ import { TaskInfoPage } from '../task-info/task-info';
 import { DataService } from '../../providers/data-service';
 import { AddTaskModal } from './add-task-modal';
 import { Task } from '../../models/task';
+import { UserData } from '../../providers/user-data';
 
 /*
   Generated class for the Childinfo page.
@@ -20,9 +21,11 @@ import { Task } from '../../models/task';
 })
 export class ChildinfoPage {
   oChild: Child
+  public isGuestUser: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalController: ModalController, private dataService: DataService, ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalController: ModalController, private dataService: DataService, public userService: UserData, ) {
     this.oChild = navParams.get('child');
+     this.isGuestUser = this.userService.isGuestUser;
   }
 
   ionViewDidLoad() {

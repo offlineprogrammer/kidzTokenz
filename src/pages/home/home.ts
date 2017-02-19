@@ -14,6 +14,7 @@ import { UserData } from '../../providers/user-data';
 })
 export class HomePage {
   kids: Child[] = [];
+  public isGuestUser: boolean;
 
   constructor(public navCtrl: NavController,
     private modalController: ModalController,
@@ -21,6 +22,7 @@ export class HomePage {
     public storageService: StorageData,
     public userService: UserData,
     public loadingCtrl: LoadingController) {
+      this.isGuestUser = this.userService.isGuestUser;
        this.dataService.getKids()
       .then((response) => {
         this.kids = response;
