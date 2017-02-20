@@ -92,7 +92,6 @@ export class AddTaskModal {
       quality: 100,
       destinationType: Camera.DestinationType.DATA_URL,
       sourceType: Camera.PictureSourceType.CAMERA,
-      allowEdit: true,
       encodingType: Camera.EncodingType.PNG,
       targetWidth: 500,
       targetHeight: 500,
