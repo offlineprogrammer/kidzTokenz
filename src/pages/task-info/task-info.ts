@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,Platform } from 'ionic-angular';
 import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
 import { Task } from '../../models/task';
+import { SocialSharing,Screenshot } from 'ionic-native';
 
 /*
   Generated class for the TaskInfo page.
@@ -22,7 +23,7 @@ export class TaskInfoPage {
   bSocialSharing: boolean = false;
   sTaskscreen: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private dataService: DataService,) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private dataService: DataService, private platform: Platform) {
     this.oTask = navParams.get('task');
     this.oChild = navParams.get('child');
     this.tokenNumbers = this.fillArrayWithNumbers(+this.oChild.tokenNumbers);
@@ -31,6 +32,52 @@ export class TaskInfoPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TaskInfoPage');
+  }
+
+  regularShare(){
+    // share(message, subject, file, url)
+    SocialSharing.share("Testing, sharing this from inside an app I'm building right now", null, "www/assets/img/hulk.jpg", null); 
+  }
+
+
+  facebookShare() {
+    this.platform.ready().then(() => {
+/*      let oGAEvent: GAEvent;
+        oGAEvent = {
+          category: 'Task',
+          action: 'facebookShare',
+          label: this.oTask.name,
+          value: this.oChild.tokenNumbers
+        };
+        this.gaService.trackEvent(oGAEvent);*/
+
+
+      let shareMessage: string = this.oChild.tokenNumbers.toString() + ' tokenz for ' + this.oChild.name + ' :) time for  ' + this.oTask.name;
+
+      Screenshot.URI(80)
+        .then((res) => {
+            console.log(res); 
+            this.sTaskscreen = res.URI;
+
+             SocialSharing.share(shareMessage, this.sTaskscreen, null)
+        .then(() => {
+         
+          },
+          () => {
+            // this.logError('Facebook Sharing Failed');
+            
+          });
+
+
+          },
+          () => {
+            // this.logError('Screenshot capture Failed');
+          });
+
+
+     
+
+    });
   }
 
     fillArrayWithNumbers(n: number) {
