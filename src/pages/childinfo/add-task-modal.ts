@@ -7,7 +7,7 @@ import { Task } from '../../models/task';
 import { Camera } from 'ionic-native';
 
 @Component({
-  selector: 'page-addKidModal',
+  selector: 'page-addTaskModal',
   templateUrl: 'add-task-modal.html'
 })
 export class AddTaskModal {
