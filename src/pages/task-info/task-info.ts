@@ -58,8 +58,10 @@ export class TaskInfoPage {
         .then((res) => {
             console.log(res); 
             this.sTaskscreen = res.URI;
+            //SocialSharing.shareViaFacebook(shareMessage, this.sTaskscreen, null)
+              SocialSharing.share(shareMessage, null,this.sTaskscreen, null)
 
-             SocialSharing.share(shareMessage, this.sTaskscreen, null)
+             //SocialSharing.share(shareMessage, this.sTaskscreen, null)
         .then(() => {
          
           },
