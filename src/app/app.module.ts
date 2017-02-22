@@ -9,6 +9,7 @@ import { TokentypePage } from '../pages/tokentype/tokentype';
 import { TokennumbersPage } from '../pages/tokennumbers/tokennumbers';
 import { TaskInfoPage } from '../pages/task-info/task-info';
 import { DataService } from '../providers/data-service';
+import { GAService } from '../providers/ga-service';
 import { AuthData } from '../providers/auth-data';
 import { StorageData } from '../providers/storage-data';
 import { UserData } from '../providers/user-data';
@@ -47,6 +48,6 @@ export function provideStorage() {
     AddTaskModal,
     LoginPage
   ],
-  providers: [Storage,DataService,AuthData,UserData,StorageData,{provide: ErrorHandler, useClass: IonicErrorHandler,useFactory: provideStorage}]
+  providers: [Storage,DataService,GAService,AuthData,UserData,StorageData,{provide: ErrorHandler, useClass: IonicErrorHandler,useFactory: provideStorage}]
 })
 export class AppModule {}

@@ -6,7 +6,7 @@ import { DataService } from '../../providers/data-service';
 import { StorageData } from '../../providers/storage-data';
 import { ChildinfoPage } from '../childinfo/childinfo';
 import { UserData } from '../../providers/user-data';
-
+import { GAService } from '../../providers/ga-service';
 
 @Component({
   selector: 'page-home',
@@ -21,6 +21,7 @@ export class HomePage {
     public dataService: DataService,
     public storageService: StorageData,
     public userService: UserData,
+     private gaService: GAService,
     public loadingCtrl: LoadingController) {
       this.isGuestUser = this.userService.isGuestUser;
        this.dataService.getKids()
@@ -28,6 +29,8 @@ export class HomePage {
         this.kids = response;
       });
 
+//this.gaService.trackView('HomePage');
+this.gaService.track_page_view('HomePage','HomePage');
 
 
 
