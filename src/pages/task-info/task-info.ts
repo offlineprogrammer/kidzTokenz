@@ -42,13 +42,7 @@ export class TaskInfoPage {
     console.log('ionViewDidLoad TaskInfoPage');
   }
 
-  regularShare(){
-    // share(message, subject, file, url)
-    SocialSharing.share("Testing, sharing this from inside an app I'm building right now", null, "www/assets/img/hulk.jpg", null); 
-  }
-
-
-  facebookShare() {
+ facebookShare() {
     this.platform.ready().then(() => {
 /*      let oGAEvent: GAEvent;
         oGAEvent = {

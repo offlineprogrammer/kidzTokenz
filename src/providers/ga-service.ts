@@ -95,13 +95,6 @@ export class GAService {
     });
   }
 
-
-  trackView(data: any): any {
-    this.platform.ready().then(() => {
-      GoogleAnalytics.trackView(data);
-    });
-  }
-
   trackException(data: GAException): any {
     this.platform.ready().then(() => {
       GoogleAnalytics.trackException(data.description, data.isFatal);

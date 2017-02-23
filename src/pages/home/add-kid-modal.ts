@@ -7,6 +7,7 @@ import { TokentypePage } from '../tokentype/tokentype';
 import { TokennumbersPage } from '../tokennumbers/tokennumbers';
 import { Camera } from 'ionic-native';
 import { GAService } from '../../providers/ga-service';
+import { GAEvent } from '../../models/gaEvent';
 
 
 @Component({
@@ -98,16 +99,16 @@ export class AddKidModal {
     if (this.form.status === 'VALID') {
       this.dataService.createKid(newkid, this.kidPicture)
         .then(() => {
-          /*       this.dataService.updateKids();
-                 let oGAEvent: GAEvent;
-                 oGAEvent = {
-                   category: 'Child',
-                   action: 'AddChild',
-                   label: newkid.tokenType,
-                   value: newkid.tokenNumbers,
-                 };
-                 this.gaService.trackEvent(oGAEvent);*/
-                  console.log("done" );
+          /*       this.dataService.updateKids();*/
+          let oGAEvent: GAEvent;
+          oGAEvent = {
+            category: 'Child',
+            action: 'AddChild',
+            label: newkid.tokenType,
+            value: newkid.tokenNumbers,
+          };
+          this.gaService.trackEvent(oGAEvent);
+          console.log("done");
           this.close();
         });
     };
