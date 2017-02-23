@@ -108,5 +108,19 @@ export class GAService {
     });
   }
 
+  setUserType(bGuestUser: boolean): any {
+    this.platform.ready().then(() => {
+      if (bGuestUser){
+        GoogleAnalytics.addCustomDimension(1, "GuestUser");
+
+      } else {
+        GoogleAnalytics.addCustomDimension(1, "RegisteredUser");
+
+      }
+
+      
+    });
+  }
+
 
 }
