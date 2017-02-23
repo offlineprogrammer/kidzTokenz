@@ -13,13 +13,13 @@ import { GAException } from '../models/gaException';
 */
 @Injectable()
 export class GAService {
-    initialized: boolean;
-      platform : any;
+  initialized: boolean;
+  platform: any;
 
 
   constructor(public http: Http, private _platform: Platform) {
     console.log('Hello GAService Provider');
-     this.platform = _platform;
+    this.platform = _platform;
     this.initialized = false;
     this.platform.ready().then(() => {
 
@@ -30,27 +30,27 @@ export class GAService {
   }
 
 
-   track_page_view(page_name, page_path) {
+  track_page_view(page_name) {
     this.platform.ready().then(() => {
 
       console.log("GoogleAnalytics is initialized? " + this.initialized);
 
-      if(this.platform.is("ios") || this.platform.is("android")){
+      if (this.platform.is("ios") || this.platform.is("android")) {
         //mobile
 
         var platform = "";
 
-        if(this.platform.is("ios")){
+        if (this.platform.is("ios")) {
           platform = "ios";
         }
-        else{
+        else {
           platform = "android";
         }
 
         //GoogleAnalytics.debugMode();
 
-        if(!this.initialized){
-console.log("1GoogleAnalytics is initialized? " + this.initialized);
+        if (!this.initialized) {
+          console.log("1GoogleAnalytics is initialized? " + this.initialized);
 
           GoogleAnalytics.debugMode();
 
@@ -76,7 +76,7 @@ console.log("1GoogleAnalytics is initialized? " + this.initialized);
           });
 
         }
-        else{
+        else {
 
           console.log("GoogleAnalytics: Starting Tracking page view: " + page_name + "_" + platform);
 
@@ -87,10 +87,9 @@ console.log("1GoogleAnalytics is initialized? " + this.initialized);
           });
         }
       }
-      else{
+      else {
         // web
-  
-        console.log("GoogleAnalytics: Tracked pageview for web: " + page_path);
+        console.log("GoogleAnalytics: Tracked pageview for web: " + page_name);
       }
 
     });
@@ -98,23 +97,23 @@ console.log("1GoogleAnalytics is initialized? " + this.initialized);
 
 
   trackView(data: any): any {
-        this.platform.ready().then(() => {
+    this.platform.ready().then(() => {
       GoogleAnalytics.trackView(data);
     });
-    }
+  }
 
-trackException(data: GAException): any {
-        this.platform.ready().then(() => {
+  trackException(data: GAException): any {
+    this.platform.ready().then(() => {
       GoogleAnalytics.trackException(data.description, data.isFatal);
     });
-    }
+  }
 
 
-trackEvent(data: GAEvent): any {
-        this.platform.ready().then(() => {
+  trackEvent(data: GAEvent): any {
+    this.platform.ready().then(() => {
       GoogleAnalytics.trackEvent(data.category, data.action, data.label, data.value);
     });
-    }
+  }
 
 
 }

@@ -4,6 +4,7 @@ import { AuthData } from '../../providers/auth-data';
 import { UserData } from '../../providers/user-data';
 import { HomePage } from '../home/home';
 import { Facebook } from 'ionic-native';
+import { GAService } from '../../providers/ga-service';
 
 /*
   Generated class for the Login page.
@@ -17,10 +18,13 @@ import { Facebook } from 'ionic-native';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authData: AuthData, public userData: UserData) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authData: AuthData, public userData: UserData,private gaService: GAService) {
+        this.gaService.track_page_view('LoginPage');
+   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+
   }
 
   facebookLogin() {

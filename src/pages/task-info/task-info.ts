@@ -4,6 +4,8 @@ import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
 import { Task } from '../../models/task';
 import { SocialSharing,Screenshot } from 'ionic-native';
+import { GAService } from '../../providers/ga-service';
+
 
 /*
   Generated class for the TaskInfo page.
@@ -23,11 +25,17 @@ export class TaskInfoPage {
   bSocialSharing: boolean = false;
   sTaskscreen: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private dataService: DataService, private platform: Platform) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private dataService: DataService, 
+    private platform: Platform,
+    private gaService: GAService) {
     this.oTask = navParams.get('task');
     this.oChild = navParams.get('child');
     this.tokenNumbers = this.fillArrayWithNumbers(+this.oChild.tokenNumbers);
     this.tokenstriples = this.getTriples();
+    this.gaService.track_page_view('TaskInfo');
   }
 
   ionViewDidLoad() {

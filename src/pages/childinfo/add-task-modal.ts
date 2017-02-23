@@ -5,7 +5,7 @@ import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
 import { Task } from '../../models/task';
 import { Camera } from 'ionic-native';
-
+import { GAService } from '../../providers/ga-service';
 @Component({
   selector: 'page-addTaskModal',
   templateUrl: 'add-task-modal.html'
@@ -24,8 +24,11 @@ export class AddTaskModal {
     private viewController: ViewController,
     private modalController: ModalController,
     private navParams: NavParams,
+    private gaService: GAService
+
   ) {
     this.oChild = navParams.get('child');
+    this.gaService.track_page_view('AddTaskModal');
 
     this.form = this.formBuilder.group({
       taskName: ['', Validators.required],

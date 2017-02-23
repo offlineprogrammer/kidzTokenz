@@ -6,6 +6,7 @@ import { Child } from '../../models/child';
 import { TokentypePage } from '../tokentype/tokentype';
 import { TokennumbersPage } from '../tokennumbers/tokennumbers';
 import { Camera } from 'ionic-native';
+import { GAService } from '../../providers/ga-service';
 
 
 @Component({
@@ -25,8 +26,10 @@ export class AddKidModal {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private viewController: ViewController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private gaService: GAService
   ) {
+    this.gaService.track_page_view('CreatKidModal');
 
     this.form = this.formBuilder.group({
       kidName: ['', Validators.required],

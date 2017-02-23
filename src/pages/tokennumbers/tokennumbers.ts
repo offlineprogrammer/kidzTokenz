@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { DataService } from '../../providers/data-service';
+import { GAService } from '../../providers/ga-service';
 
 /*
   Generated class for the Tokennumbers page.
@@ -15,9 +16,15 @@ import { DataService } from '../../providers/data-service';
 export class TokennumbersPage {
   tokenNumbers: string;
   tokenNumbersArray: string[];
-  constructor(private dataService: DataService, public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, ) {
+  constructor(
+    private dataService: DataService, 
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private viewCtrl: ViewController, 
+    private gaService: GAService) {
     this.tokenNumbers = navParams.get('tokenNumbers');
     this.tokenNumbersArray = this.fillArrayWithNumbers(10);
+    this.gaService.track_page_view('TokennumbersPage');
   }
 
   ionViewDidLoad() {

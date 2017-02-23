@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Child } from '../../models/child';
-import { NavController, ModalController,LoadingController  } from 'ionic-angular';
+import { NavController, ModalController, LoadingController } from 'ionic-angular';
 import { AddKidModal } from './add-kid-modal';
 import { DataService } from '../../providers/data-service';
 import { StorageData } from '../../providers/storage-data';
@@ -21,16 +21,16 @@ export class HomePage {
     public dataService: DataService,
     public storageService: StorageData,
     public userService: UserData,
-     private gaService: GAService,
+    private gaService: GAService,
     public loadingCtrl: LoadingController) {
-      this.isGuestUser = this.userService.isGuestUser;
-       this.dataService.getKids()
+    this.isGuestUser = this.userService.isGuestUser;
+    this.dataService.getKids()
       .then((response) => {
         this.kids = response;
       });
 
-//this.gaService.trackView('HomePage');
-this.gaService.track_page_view('HomePage','HomePage');
+
+    this.gaService.track_page_view('HomePage');
 
 
 

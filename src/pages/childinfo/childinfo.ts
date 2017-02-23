@@ -8,6 +8,7 @@ import { DataService } from '../../providers/data-service';
 import { AddTaskModal } from './add-task-modal';
 import { Task } from '../../models/task';
 import { UserData } from '../../providers/user-data';
+import { GAService } from '../../providers/ga-service';
 
 /*
   Generated class for the Childinfo page.
@@ -23,9 +24,16 @@ export class ChildinfoPage {
   oChild: Child
   public isGuestUser: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalController: ModalController, private dataService: DataService, public userService: UserData, ) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private modalController: ModalController,
+    private dataService: DataService,
+    public userService: UserData,
+    private gaService: GAService) {
     this.oChild = navParams.get('child');
-     this.isGuestUser = this.userService.isGuestUser;
+    this.isGuestUser = this.userService.isGuestUser;
+    this.gaService.track_page_view('ChildInfo');
   }
 
   ionViewDidLoad() {
