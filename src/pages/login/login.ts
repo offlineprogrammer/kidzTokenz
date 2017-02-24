@@ -35,6 +35,7 @@ export class LoginPage {
         .then(response => {
           console.log('test');
           this.navCtrl.push(HomePage, {});
+          this.userData.setGuestUser(false);
           this.gaService.setUserType(false);
 
         }, function (error) {
