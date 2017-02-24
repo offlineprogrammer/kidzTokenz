@@ -6,6 +6,7 @@ import { Child } from '../../models/child';
 import { Task } from '../../models/task';
 import { Camera } from 'ionic-native';
 import { GAService } from '../../providers/ga-service';
+import { GAEvent } from '../../models/gaEvent';
 @Component({
   selector: 'page-addTaskModal',
   templateUrl: 'add-task-modal.html'
@@ -32,7 +33,7 @@ export class AddTaskModal {
 
     this.form = this.formBuilder.group({
       taskName: ['', Validators.required],
-       negReinforcement: [false, Validators.required],
+      negReinforcement: [false, Validators.required],
 
     });
 
@@ -71,17 +72,10 @@ export class AddTaskModal {
     };
     if (this.form.status === 'VALID') {
       this.oChild.tasks.push(newtask);
-      this.oChild.tasksCount+=1; 
+      this.oChild.tasksCount += 1;
       this.dataService.updateKids()
         .then(() => {
-          // let oGAEvent: GAEvent;
-          //     oGAEvent = {
-          //         category: 'Task',
-          //         action: 'AddTask',
-          //         label: newtask.name,
-          //         value: 0
-          //     };
-          //     this.gaService.trackEvent(oGAEvent);
+          this.trackEvent('Task', 'AddTask', newtask.name, 0);
           this.close();
         });
     };
@@ -90,7 +84,22 @@ export class AddTaskModal {
   }
 
 
-   takePicture() {
+  trackEvent(sCategory: string,
+    sAction: string,
+    sLabel: string,
+    nValue: number) {
+    let oGAEvent: GAEvent;
+    oGAEvent = {
+      category: sCategory,
+      action: sAction,
+      label: sLabel,
+      value: nValue
+    };
+    this.gaService.trackEvent(oGAEvent);
+  }
+
+
+  takePicture() {
     Camera.getPicture({
       quality: 100,
       destinationType: Camera.DestinationType.DATA_URL,
@@ -101,7 +110,8 @@ export class AddTaskModal {
       saveToPhotoAlbum: true
     }).then(imageData => {
       this.base64Image = 'data:image/png;base64,' + imageData;
-     // this.kidPicture = imageData;
+      this.trackEvent('Task', 'TakePicture', '', 0);
+      // this.kidPicture = imageData;
 
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
@@ -125,7 +135,8 @@ export class AddTaskModal {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
-    //  this.kidPicture = imageData;
+      this.trackEvent('Task', 'OpenGallery', '', 0);
+      //  this.kidPicture = imageData;
     }, (err) => {
       // Handle error
     });

@@ -78,6 +78,22 @@ export class AddKidModal {
   }
 
 
+    trackEvent(sCategory: string,
+    sAction: string,
+    sLabel: string,
+    nValue: number) {
+    let oGAEvent: GAEvent;
+    oGAEvent = {
+      category: sCategory,
+      action: sAction,
+      label: sLabel,
+      value: nValue
+    };
+    this.gaService.trackEvent(oGAEvent);
+  }
+
+
+
 
   processForm() {
 
@@ -100,14 +116,7 @@ export class AddKidModal {
       this.dataService.createKid(newkid, this.kidPicture)
         .then(() => {
           /*       this.dataService.updateKids();*/
-          let oGAEvent: GAEvent;
-          oGAEvent = {
-            category: 'Child',
-            action: 'AddChild',
-            label: newkid.tokenType,
-            value: newkid.tokenNumbers,
-          };
-          this.gaService.trackEvent(oGAEvent);
+          this.trackEvent('Child', 'AddChild', newkid.tokenType, newkid.tokenNumbers);
           console.log("done");
           this.close();
         });
@@ -126,6 +135,7 @@ export class AddKidModal {
     }).then(imageData => {
       this.base64Image = 'data:image/png;base64,' + imageData;
       this.kidPicture = imageData;
+      this.trackEvent('Child', 'TakePicture', '', 0);
 
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
@@ -150,6 +160,7 @@ export class AddKidModal {
       // If it's base64:
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
       this.kidPicture = imageData;
+      this.trackEvent('Child', 'OpenGallery', '', 0);
     }, (err) => {
       // Handle error
     });
