@@ -8,6 +8,7 @@ import { ChildinfoPage } from '../childinfo/childinfo';
 import { UserData } from '../../providers/user-data';
 import { GAService } from '../../providers/ga-service';
 
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -24,9 +25,14 @@ export class HomePage {
     private gaService: GAService,
     public loadingCtrl: LoadingController) {
     this.isGuestUser = this.userService.isGuestUser;
+    let loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    loader.present();
     this.dataService.getKids()
       .then((response) => {
         this.kids = response;
+        loader.dismiss()
       });
 
 
@@ -57,8 +63,7 @@ export class HomePage {
 
   presentLoading() {
     let loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
+      content: "Please wait..."
     });
     loader.present();
   }
