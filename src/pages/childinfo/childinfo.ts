@@ -9,6 +9,7 @@ import { AddTaskModal } from './add-task-modal';
 import { Task } from '../../models/task';
 import { UserData } from '../../providers/user-data';
 import { GAService } from '../../providers/ga-service';
+import { GAEvent } from '../../models/gaEvent';
 
 /*
   Generated class for the Childinfo page.
@@ -46,6 +47,7 @@ export class ChildinfoPage {
       this.oChild.tokenType = data.selectedToken;
       this.oChild.negativetokenType = data.selectedToken.replace('assets/images/', 'assets/images/bad-');
       this.updateData();
+      this.trackEvent('ChildInfo', 'changeToken', this.oChild.tokenType, 0);
     });
     modal.present();
   }
@@ -56,9 +58,25 @@ export class ChildinfoPage {
       this.oChild.tokenNumbers = data.tokenNumbers;
       this.oChild.srcTokenNumbers = 'assets/images/' + this.oChild.tokenNumbers + '.png';
       this.updateData();
+      this.trackEvent('ChildInfo', 'changeTokenNumbers',  this.oChild.srcTokenNumbers , 0);
     });
     modal.present();
   }
+
+  trackEvent(sCategory: string,
+    sAction: string,
+    sLabel: string,
+    nValue: number) {
+    let oGAEvent: GAEvent;
+    oGAEvent = {
+      category: sCategory,
+      action: sAction,
+      label: sLabel,
+      value: nValue
+    };
+    this.gaService.trackEvent(oGAEvent);
+  }
+
 
 
   addNewTask(data: any): void {
@@ -78,6 +96,7 @@ export class ChildinfoPage {
 
     this.dataService.deleteKid(data)
       .then(() => {
+        this.trackEvent('ChildInfo', 'deleteChild', '' , 0);
         this.navCtrl.pop();
       });
   }

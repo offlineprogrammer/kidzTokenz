@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
 import { Task } from '../../models/task';
-import { SocialSharing,Screenshot } from 'ionic-native';
+import { SocialSharing, Screenshot } from 'ionic-native';
 import { GAService } from '../../providers/ga-service';
+import { GAEvent } from '../../models/gaEvent';
 
 
 /*
@@ -26,9 +27,9 @@ export class TaskInfoPage {
   sTaskscreen: string;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
-    private dataService: DataService, 
+    private dataService: DataService,
     private platform: Platform,
     private gaService: GAService) {
     this.oTask = navParams.get('task');
@@ -42,52 +43,36 @@ export class TaskInfoPage {
     console.log('ionViewDidLoad TaskInfoPage');
   }
 
- facebookShare() {
+  socialSharing() {
     this.platform.ready().then(() => {
-/*      let oGAEvent: GAEvent;
-        oGAEvent = {
-          category: 'Task',
-          action: 'facebookShare',
-          label: this.oTask.name,
-          value: this.oChild.tokenNumbers
-        };
-        this.gaService.trackEvent(oGAEvent);*/
-
-
       let shareMessage: string = this.oChild.tokenNumbers.toString() + ' tokenz for ' + this.oChild.name + ' :) time for  ' + this.oTask.name;
 
       Screenshot.URI(80)
         .then((res) => {
-            console.log(res); 
-            this.sTaskscreen = res.URI;
-            //SocialSharing.shareViaFacebook(shareMessage, this.sTaskscreen, null)
-              SocialSharing.share(shareMessage, null,this.sTaskscreen, null)
-
-             //SocialSharing.share(shareMessage, this.sTaskscreen, null)
-        .then(() => {
-         
-          },
-          () => {
-            // this.logError('Facebook Sharing Failed');
-            
-          });
-
-
-          },
-          () => {
-            // this.logError('Screenshot capture Failed');
-          });
-
-
-     
-
+          console.log(res);
+          this.sTaskscreen = res.URI;
+          SocialSharing.share(shareMessage, null, this.sTaskscreen, null)
+            .then(() => {
+              if (this.oTask.negativeReinforcement) {
+                this.trackEvent('NRTask', 'SocialSharing', this.oTask.name, 0);
+              } else {
+                this.trackEvent('PRTask', 'SocialSharing', this.oTask.name, 0);
+              }
+            },
+            () => {
+              // this.logError('Facebook Sharing Failed');
+            });
+        },
+        () => {
+          // this.logError('Screenshot capture Failed');
+        });
     });
   }
 
-    fillArrayWithNumbers(n: number) {
+  fillArrayWithNumbers(n: number) {
     let nArray = [];
     nArray = Array.apply(null, Array(n));
-    return nArray.map(function(x, i) {
+    return nArray.map(function (x, i) {
       return i;
     });
   }
@@ -106,7 +91,7 @@ export class TaskInfoPage {
     return triples;
   }
 
-   private updateData(): void {
+  private updateData(): void {
     this.dataService.updateKids()
       .then(() => {
         if (this.oTask.score === this.oChild.tokenNumbers) {
@@ -125,10 +110,15 @@ export class TaskInfoPage {
       });
   }
 
-    addToken(): void {
+  addToken(): void {
     console.log(this.oTask.score);
     this.oTask.score++;
     this.updateData();
+    if (this.oTask.negativeReinforcement) {
+      this.trackEvent('NRTask', 'addToken', this.oTask.name, this.oTask.score);
+    } else {
+      this.trackEvent('PRTask', 'addToken', this.oTask.name, this.oTask.score);
+    }
     console.log(this.oTask.score);
   }
 
@@ -136,12 +126,22 @@ export class TaskInfoPage {
     console.log(this.oTask.score);
     this.oTask.score--;
     this.updateData();
+    if (this.oTask.negativeReinforcement) {
+      this.trackEvent('NRTask', 'removeToken', this.oTask.name, this.oTask.score);
+    } else {
+      this.trackEvent('PRTask', 'removeToken', this.oTask.name, this.oTask.score);
+    }
     console.log(this.oTask.score);
   }
 
   resetScore(): void {
     this.oTask.score = 0;
     this.updateData();
+    if (this.oTask.negativeReinforcement) {
+      this.trackEvent('NRTask', 'resetScore', this.oTask.name, this.oTask.score);
+    } else {
+      this.trackEvent('PRTask', 'resetScore', this.oTask.name, this.oTask.score);
+    }
   }
 
   deleteTask(data: Task): void {
@@ -150,14 +150,34 @@ export class TaskInfoPage {
 
     if (index > -1) {
       this.oChild.tasks.splice(index, 1);
-      this.oChild.tasksCount -=1;
+      this.oChild.tasksCount -= 1;
+      if (data.negativeReinforcement) {
+        this.trackEvent('NRTask', 'deleteTask', data.name, data.score);
+      } else {
+        this.trackEvent('PRTask', 'deleteTask', data.name, data.score);
+      }
     }
     this.updateData();
 
     this.navCtrl.pop();
 
   }
-  
+
+
+  trackEvent(sCategory: string,
+    sAction: string,
+    sLabel: string,
+    nValue: number) {
+    let oGAEvent: GAEvent;
+    oGAEvent = {
+      category: sCategory,
+      action: sAction,
+      label: sLabel,
+      value: nValue
+    };
+    this.gaService.trackEvent(oGAEvent);
+  }
+
 
 
 

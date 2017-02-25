@@ -75,7 +75,12 @@ export class AddTaskModal {
       this.oChild.tasksCount += 1;
       this.dataService.updateKids()
         .then(() => {
-          this.trackEvent('Task', 'AddTask', newtask.name, 0);
+          if (newtask.negativeReinforcement) {
+            this.trackEvent('NRTask', 'AddTask', newtask.name, 0);
+          } else {
+            this.trackEvent('PRTask', 'AddTask', newtask.name, 0);
+          }
+
           this.close();
         });
     };
