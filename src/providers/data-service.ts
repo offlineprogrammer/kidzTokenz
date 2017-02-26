@@ -15,28 +15,20 @@ import { UserData } from './user-data';
 @Injectable()
 export class DataService {
   public currentUser: any;
-  // Kids: Child[] = [];
-
   public kidzList: any;
   public kidzPhotosRef: any;
-
   private KIDS_KEY: string = 'kids';
 
   constructor(public http: Http, public storage: Storage, public userService: UserData, ) {
     console.log('Hello DataService Provider');
-
     if (this.userService.isGuestUser) {
-
 
     } else {
       this.currentUser = firebase.auth().currentUser.uid;
       this.kidzList = firebase.database()
         .ref(`userProfile/${this.currentUser}/kidz`);
       this.kidzPhotosRef = firebase.storage().ref('/kidzPhotos/');
-
     }
-
-
   }
 
 
@@ -47,18 +39,13 @@ export class DataService {
 
   getKids(): Promise<Child[]> {
     let oKids: any;
-
     return new Promise(resolve => {
       if (this.userService.isGuestUser) {
-
         this.storage.get(this.KIDS_KEY).then((val) => {
           console.log(val);
           this.kidzList = JSON.parse(val);
-          // this.Kids = oKids;
-
           resolve(this.kidzList);
         })
-
       } else {
         this.kidzList.on('value', snapshot => {
           let rawList = [];
@@ -74,40 +61,27 @@ export class DataService {
               childimage: snap.val().childimage,
               tasksCount: snap.val().tasksCount,
               kidPhoto: snap.val().kidPhoto
-
-
             });
           });
           resolve(rawList);
-          //  this.kids = rawList;
         });
       }
 
     });
   }
 
-
-
-
   createKid(data: Child, kidPicture): Promise<any> {
-
     return new Promise(resolve => {
-
       if (this.userService.isGuestUser) {
         if (typeof this.kidzList === 'undefined') {
           this.kidzList = [];
-
         }
-
         if (this.kidzList === null) {
           this.kidzList = [];
-
         }
-
         this.kidzList.push(data);
         this.saveData(this.kidzList, this.KIDS_KEY);
         resolve("Done");
-
       } else {
 
         this.kidzList.push({
@@ -131,19 +105,9 @@ export class DataService {
           }
         });
       }
-
       resolve("Done");
-
     });
-
-
-
-
-
-
   }
-
-
 
   private saveData(data: any, key: string) {
     if (data) {
@@ -170,45 +134,44 @@ export class DataService {
         'assets/images/triceratops.png',
       ];
     return tokenTypes;
-
   }
 
   deleteKid(data: Child): Promise<any> {
-
     return new Promise((resolve, reject) => {
       if (typeof this.kidzList === 'undefined') {
         this.kidzList = [];
-
       }
-      let index = this.kidzList.indexOf(data);
-
-      if (index > -1) {
-        this.kidzList.splice(index, 1);
+      if (this.userService.isGuestUser) {
+        let index = this.kidzList.indexOf(data);
+        if (index > -1) {
+          this.kidzList.splice(index, 1);
+        }
+        this.saveData(this.kidzList, this.KIDS_KEY);
       }
-
-
-
-
-      this.saveData(this.kidzList, this.KIDS_KEY);
+      else {
+        var adaRef = this.kidzList.child(data.childId);
+        adaRef.remove()
+          .then(function () {
+            console.log("Remove succeeded.")
+          })
+          .catch(function (error) {
+            console.log("Remove failed: " + error.message)
+          });
+      }
       resolve('Done');
-
     }).catch((error) => {
       // reject('Only available on a device');
     });
   }
-
 
   updateKids(): Promise<any> {
     let oKids: any;
     return new Promise((resolve, reject) => {
       if (typeof this.kidzList === 'undefined') {
         this.kidzList = [];
-
       }
-
       this.saveData(this.kidzList, this.KIDS_KEY);
       resolve('Done');
-
     }).catch((error) => {
       //this.logError(error);
       // reject('Only available on a device');

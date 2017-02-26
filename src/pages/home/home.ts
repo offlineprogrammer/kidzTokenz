@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Child } from '../../models/child';
-import { NavController, ModalController, LoadingController } from 'ionic-angular';
+import { NavController, ModalController, LoadingController, Events } from 'ionic-angular';
 import { AddKidModal } from './add-kid-modal';
 import { DataService } from '../../providers/data-service';
 import { StorageData } from '../../providers/storage-data';
 import { ChildinfoPage } from '../childinfo/childinfo';
 import { UserData } from '../../providers/user-data';
 import { GAService } from '../../providers/ga-service';
+
 
 
 @Component({
@@ -23,7 +24,8 @@ export class HomePage {
     public storageService: StorageData,
     public userService: UserData,
     private gaService: GAService,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public events: Events) {
     this.isGuestUser = this.userService.isGuestUser;
     let loader = this.loadingCtrl.create({
       content: "Please wait..."
@@ -40,7 +42,25 @@ export class HomePage {
 
 
 
+
   }
+
+  ngOnInit() {
+    this.events.subscribe('child:deleted', () => {
+      let loader = this.loadingCtrl.create({
+        content: "Please wait..."
+      });
+      loader.present();
+      this.dataService.getKids()
+        .then((response) => {
+          this.kids = response;
+          loader.dismiss()
+        });
+    });
+
+  }
+
+
 
   addNewKid(): void {
 

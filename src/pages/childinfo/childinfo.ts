@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, Events } from 'ionic-angular';
 import { Child } from '../../models/child';
 import { TokentypePage } from '../tokentype/tokentype';
 import { TokennumbersPage } from '../tokennumbers/tokennumbers';
@@ -31,7 +31,8 @@ export class ChildinfoPage {
     private modalController: ModalController,
     private dataService: DataService,
     public userService: UserData,
-    private gaService: GAService) {
+    private gaService: GAService,
+    public events: Events) {
     this.oChild = navParams.get('child');
     this.isGuestUser = this.userService.isGuestUser;
     this.gaService.track_page_view('ChildInfo');
@@ -97,6 +98,7 @@ export class ChildinfoPage {
     this.dataService.deleteKid(data)
       .then(() => {
         this.trackEvent('ChildInfo', 'deleteChild', '' , 0);
+        this.events.publish('child:deleted');
         this.navCtrl.pop();
       });
   }
