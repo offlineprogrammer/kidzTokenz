@@ -21,8 +21,6 @@ export class AddKidModal {
   tokenNumbers: number = 5;
   base64Image: string;
   kidPicture: any;
-
-
   constructor(public navCtrl: NavController,
     private formBuilder: FormBuilder,
     private dataService: DataService,
@@ -31,29 +29,23 @@ export class AddKidModal {
     private gaService: GAService
   ) {
     this.gaService.track_page_view('CreatKidModal');
-
     this.form = this.formBuilder.group({
       kidName: ['', Validators.required],
-
     });
     this.kidPicture = null;
-
   }
 
   close() {
     this.viewController.dismiss();
   }
 
-
   private generateUUID(): any {
     var d = new Date().getTime();
-
     var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx'.replace(/[xy]/g, function (c) {
       var r = (d + Math.random() * 16) % 16 | 0;
       d = Math.floor(d / 16);
       return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
-
     return uuid;
   }
 
@@ -62,10 +54,8 @@ export class AddKidModal {
     modal.onDidDismiss(data => {
       this.tokenType = data.selectedToken;
     });
-
     modal.present();
   }
-
 
   selectTokenNumbers() {
     let modal = this.modalController.create(TokennumbersPage, { tokenNumbers: this.srcTokenNumbers });
@@ -73,12 +63,10 @@ export class AddKidModal {
       this.tokenNumbers = data.tokenNumbers;
       this.srcTokenNumbers = 'assets/images/' + this.tokenNumbers + '.png';
     });
-
     modal.present();
   }
 
-
-    trackEvent(sCategory: string,
+  trackEvent(sCategory: string,
     sAction: string,
     sLabel: string,
     nValue: number) {
@@ -92,11 +80,7 @@ export class AddKidModal {
     this.gaService.trackEvent(oGAEvent);
   }
 
-
-
-
   processForm() {
-
     let newkid: Child;
     newkid = {
       childId: this.generateUUID(),
@@ -110,7 +94,6 @@ export class AddKidModal {
       tasksCount: 0,
       kidPhoto: '',
       tasks: []
-
     };
     if (this.form.status === 'VALID') {
       this.dataService.createKid(newkid, this.kidPicture)
@@ -142,8 +125,6 @@ export class AddKidModal {
     });
   }
 
-
-
   openGallery(): void {
     let cameraOptions = {
       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
@@ -161,11 +142,8 @@ export class AddKidModal {
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
       this.kidPicture = imageData;
       this.trackEvent('Child', 'OpenGallery', '', 0);
-    }, (err) => {
-      // Handle error
+    }, (err) => {      // Handle error
     });
-
-
   }
 
 }

@@ -15,8 +15,8 @@
       <ion-col>
         <ion-item class="child-item" *ngFor="let item of kids" (click)="itemSelected(item)">
           <ion-thumbnail item-left>
-            <img *ngIf="isGuestUser"   src="{{item.childimage}}">
-            <img *ngIf="!isGuestUser"   src="{{item.kidPhoto}}">
+            <img *ngIf="isGuestUser" src="{{item.childimage}}">
+            <img *ngIf="!isGuestUser" src="{{item.kidPhoto}}">
           </ion-thumbnail>
           <h2>
             {{item.name}}
@@ -34,6 +34,3 @@
     <button ion-fab color="danger" (click)="addNewKid()"><ion-icon name="add" ></ion-icon></button>
   </ion-fab>
 </ion-content>
-<!--<button fab danger large fab-bottom fab-right (click)="addNewKid()" style="z-index:100">
-    <ion-icon name="add"></ion-icon>
-  </button>-->

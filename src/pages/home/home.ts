@@ -8,8 +8,6 @@ import { ChildinfoPage } from '../childinfo/childinfo';
 import { UserData } from '../../providers/user-data';
 import { GAService } from '../../providers/ga-service';
 
-
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -36,13 +34,7 @@ export class HomePage {
         this.kids = response;
         loader.dismiss()
       });
-
-
     this.gaService.track_page_view('HomePage');
-
-
-
-
   }
 
   ngOnInit() {
@@ -57,13 +49,9 @@ export class HomePage {
           loader.dismiss()
         });
     });
-
   }
 
-
-
   addNewKid(): void {
-
     let modal = this.modalController.create(AddKidModal);
     modal.onDidDismiss(data => {
       this.dataService.getKids()
@@ -87,6 +75,4 @@ export class HomePage {
     });
     loader.present();
   }
-
-
 }
