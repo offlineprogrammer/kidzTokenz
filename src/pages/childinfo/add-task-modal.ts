@@ -77,7 +77,7 @@ export class AddTaskModal {
         }
       this.oChild.tasks.push(newtask);
       this.oChild.tasksCount += 1;
-      this.dataService.updateKids()
+      this.dataService.updateTasks(this.oChild)
         .then(() => {
           if (newtask.negativeReinforcement) {
             this.trackEvent('NRTask', 'AddTask', newtask.name, 0);

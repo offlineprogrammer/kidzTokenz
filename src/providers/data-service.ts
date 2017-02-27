@@ -165,6 +165,34 @@ export class DataService {
     });
   }
 
+  updateTasks(data: Child): Promise<any> {
+   
+    return new Promise((resolve, reject) => {
+       if (this.userService.isGuestUser) {
+          this.saveData(this.kidzList, this.KIDS_KEY);
+
+       }
+       else{
+
+               var adaRef = this.kidzList.child(data.childId);
+      adaRef.child('tasks').set(data.tasks).then(function () {
+            console.log(" succeeded.")
+          })
+          .catch(function (error) {
+            console.log(" failed: " + error.message)
+          });
+
+
+       }
+
+      resolve('Done');
+    }).catch((error) => {
+      //this.logError(error);
+      // reject('Only available on a device');
+    });
+  }
+
+
   updateKids(): Promise<any> {
     let oKids: any;
     return new Promise((resolve, reject) => {
