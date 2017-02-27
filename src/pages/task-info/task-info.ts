@@ -92,7 +92,7 @@ export class TaskInfoPage {
   }
 
   private updateData(): void {
-    this.dataService.updateKids()
+    this.dataService.updateTasks(this.oChild)
       .then(() => {
         if (this.oTask.score === this.oChild.tokenNumbers) {
           // this.playSound('win');
