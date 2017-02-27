@@ -67,10 +67,14 @@ export class AddTaskModal {
       name: this.form.value.taskName,
       score: 0,
       taskimage: this.base64Image,
-      negativeReinforcement: this.form.value.negReinforcement
+      negativeReinforcement: this.form.value.negReinforcement,
+      taskPhoto: '',
 
     };
     if (this.form.status === 'VALID') {
+       if (typeof this.oChild.tasks === 'undefined') {
+          this.oChild.tasks = [];
+        }
       this.oChild.tasks.push(newtask);
       this.oChild.tasksCount += 1;
       this.dataService.updateKids()

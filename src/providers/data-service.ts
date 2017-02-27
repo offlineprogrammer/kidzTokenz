@@ -60,7 +60,8 @@ export class DataService {
               isActive: snap.val().isActive,
               childimage: snap.val().childimage,
               tasksCount: snap.val().tasksCount,
-              kidPhoto: snap.val().kidPhoto
+              kidPhoto: snap.val().kidPhoto,
+              tasks: snap.val().tasks
             });
           });
           resolve(rawList);
