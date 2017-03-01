@@ -17,6 +17,7 @@ export class AddTaskModal {
   childId: string;
   oChild: Child;
   base64Image: string;
+   taskPicture: any;
 
 
   constructor(public navCtrl: NavController,
@@ -36,6 +37,8 @@ export class AddTaskModal {
       negReinforcement: [false, Validators.required],
 
     });
+
+    this.taskPicture = null;
 
   }
 
@@ -75,9 +78,9 @@ export class AddTaskModal {
        if (typeof this.oChild.tasks === 'undefined') {
           this.oChild.tasks = [];
         }
-      this.oChild.tasks.push(newtask);
-      this.oChild.tasksCount += 1;
-      this.dataService.updateTasks(this.oChild)
+      // this.oChild.tasks.push(newtask);
+      // this.oChild.tasksCount += 1;
+      this.dataService.creatTask(this.oChild, newtask, this.taskPicture)
         .then(() => {
           if (newtask.negativeReinforcement) {
             this.trackEvent('NRTask', 'AddTask', newtask.name, 0);
@@ -120,7 +123,7 @@ export class AddTaskModal {
     }).then(imageData => {
       this.base64Image = 'data:image/png;base64,' + imageData;
       this.trackEvent('Task', 'TakePicture', '', 0);
-      // this.kidPicture = imageData;
+       this.taskPicture = imageData;
 
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
@@ -145,7 +148,7 @@ export class AddTaskModal {
       // If it's base64:
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
       this.trackEvent('Task', 'OpenGallery', '', 0);
-      //  this.kidPicture = imageData;
+      this.taskPicture = imageData;
     }, (err) => {
       // Handle error
     });

@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import firebase from 'firebase';
 import { UserData } from './user-data';
+import { Task } from '../models/task';
 
 /*
   Generated class for the DataService provider.
@@ -165,28 +166,58 @@ export class DataService {
     });
   }
 
-  updateTasks(data: Child): Promise<any> {
-
+  creatTask(data: Child, taskData: Task, taskPicture): Promise<any> {
     return new Promise((resolve, reject) => {
       if (this.userService.isGuestUser) {
+        data.tasks.push(taskData);
+        data.tasksCount += 1;
         this.saveData(this.kidzList, this.KIDS_KEY);
-
       }
       else {
-
         var adaRef = this.kidzList.child(data.childId);
-        adaRef.child('tasks').set(data.tasks).then(function () {
-           adaRef.child('tasksCount').set(data.tasksCount)
-          console.log(" succeeded.")
+        if (taskPicture != null) {
+          this.kidzPhotosRef.child(data.childId).child(taskData.taskId)
+            .putString(taskPicture, 'base64', { contentType: 'image/png' })
+            .then((savedPicture) => {
+              taskData.taskPhoto = savedPicture.downloadURL;
+            });
+        } else {
 
+        }
+        data.tasks.push(taskData);
+        data.tasksCount += 1;
+        adaRef.child('tasks').set(data.tasks).then(function () {
+          adaRef.child('tasksCount').set(data.tasksCount)
+          adaRef.child('tasks').set(data.tasks)
+          console.log(" succeeded.")
         })
           .catch(function (error) {
             console.log(" failed: " + error.message)
           });
-
-
       }
+      resolve('Done');
+    }).catch((error) => {
+      //this.logError(error);
+      // reject('Only available on a device');
+    });
+  }
 
+
+  updateTasks(data: Child): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (this.userService.isGuestUser) {
+        this.saveData(this.kidzList, this.KIDS_KEY);
+      }
+      else {
+        var adaRef = this.kidzList.child(data.childId);
+        adaRef.child('tasks').set(data.tasks).then(function () {
+          adaRef.child('tasksCount').set(data.tasksCount)
+          console.log(" succeeded.")
+        })
+          .catch(function (error) {
+            console.log(" failed: " + error.message)
+          });
+      }
       resolve('Done');
     }).catch((error) => {
       //this.logError(error);
