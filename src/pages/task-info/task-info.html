@@ -19,7 +19,7 @@
 
 
 <ion-content padding>
- <h2>{{oTask.name}}</h2>
+  <h2>{{oTask.name}}</h2>
   <ion-grid>
     <ion-row>
       <ion-col width-50>
@@ -33,33 +33,33 @@
         </button>
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let trio of tokenstriples" >
+    <ion-row *ngFor="let trio of tokenstriples">
       <ion-col *ngFor="let item of trio">
-       
-          <img *ngIf="item + 1 > oTask.score && oTask.negativeReinforcement" class="center-image" src="{{oChild.tokenType}}">
-          <img *ngIf="item + 1 <= oTask.score && oTask.negativeReinforcement" class="center-image" src="{{oChild.negativetokenType}}">
 
-          <img *ngIf="item + 1 > oTask.score && !oTask.negativeReinforcement" class="bwimage" src="{{oChild.tokenType}}">
-          <img *ngIf="item + 1 <= oTask.score && !oTask.negativeReinforcement" class="center-image" src="{{oChild.tokenType}}">
-       
+        <img *ngIf="item + 1 > oTask.score && oTask.negativeReinforcement" class="center-image" src="{{oChild.tokenType}}">
+        <img *ngIf="item + 1 <= oTask.score && oTask.negativeReinforcement" class="center-image" src="{{oChild.negativetokenType}}">
+
+        <img *ngIf="item + 1 > oTask.score && !oTask.negativeReinforcement" class="bwimage" src="{{oChild.tokenType}}">
+        <img *ngIf="item + 1 <= oTask.score && !oTask.negativeReinforcement" class="center-image" src="{{oChild.tokenType}}">
+
       </ion-col>
     </ion-row>
-    <ion-row class="task-comment"  *ngIf="oTask.score < oChild.tokenNumbers && !oTask.negativeReinforcement">
-          <h2>Keep up the good work</h2>
+    <ion-row class="task-comment" *ngIf="oTask.score < oChild.tokenNumbers && !oTask.negativeReinforcement">
+      <h2>Keep up the good work</h2>
     </ion-row>
     <ion-row class="task-comment" *ngIf="oTask.score == oChild.tokenNumbers && !oTask.negativeReinforcement">
-          <h2>You did it. Well done !! </h2>         
+      <h2>You did it. Well done !! </h2>
     </ion-row>
-    <ion-row class="task-comment"  *ngIf="oTask.score < oChild.tokenNumbers && oTask.negativeReinforcement">
-          <h2>You need to do better..</h2>
+    <ion-row class="task-comment" *ngIf="oTask.score < oChild.tokenNumbers && oTask.negativeReinforcement">
+      <h2>You need to do better..</h2>
     </ion-row>
     <ion-row class="task-comment" *ngIf="oTask.score == oChild.tokenNumbers && oTask.negativeReinforcement">
-          <h2>Oh No! That's too bad </h2>         
-    </ion-row>    
-     <ion-row class="task-comment" *ngIf="oTask.score == oChild.tokenNumbers ">
-          <button ion-button full color="primary" round large  (click)="socialSharing()"> <ion-icon name="ion-android-share"></ion-icon></button>
+      <h2>Oh No! That's too bad </h2>
     </ion-row>
-    <ion-row >
+    <ion-row class="task-comment" *ngIf="oTask.score == oChild.tokenNumbers ">
+      <button ion-button full color="primary" round large (click)="socialSharing()"> <ion-icon name="ion-android-share"></ion-icon></button>
+    </ion-row>
+    <ion-row>
       <ion-col>
         <button ion-button [disabled]="oTask.score < oChild.tokenNumbers" full color="danger" round large (click)="resetScore()">
           <ion-icon name="md-refresh"></ion-icon>
@@ -67,7 +67,8 @@
       </ion-col>
     </ion-row>
     <div class="task-photo" text-center>
-      <img src="{{oTask.taskimage}}" class="task-background-image">
+      <img *ngIf="!isGuestUser" src="{{oTask.taskPhoto}}" class="task-background-image">
+      <img *ngIf="isGuestUser" src="{{oTask.taskimage}}" class="task-background-image">
     </div>
   </ion-grid>
 </ion-content>

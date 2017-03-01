@@ -19,6 +19,7 @@ export class UserData {
   }
 
   setGuestUser(bGuestUser: boolean): void {
+    console.log('Set Your name is', bGuestUser);
     this.storage.set('isGuestUser', bGuestUser);
     this.isGuestUser = bGuestUser;
   }

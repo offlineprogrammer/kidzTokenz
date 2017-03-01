@@ -97,12 +97,14 @@ export class DataService {
           tasksCount: data.tasksCount
         }).then(newKid => {
           this.kidzList.child(newKid.key).child('childId').set(newKid.key);
-          if (data.childimage != null) {
+          if (kidPicture != null) {
             this.kidzPhotosRef.child(newKid.key).child('kidPhoto.png')
               .putString(kidPicture, 'base64', { contentType: 'image/png' })
               .then((savedPicture) => {
                 this.kidzList.child(newKid.key).child('kidPhoto')
                   .set(savedPicture.downloadURL);
+                this.kidzList.child(newKid.key).child('childimage')
+                  .set("");
               });
           }
         });
@@ -180,20 +182,32 @@ export class DataService {
             .putString(taskPicture, 'base64', { contentType: 'image/png' })
             .then((savedPicture) => {
               taskData.taskPhoto = savedPicture.downloadURL;
+              taskData.taskimage = "";
+              data.tasks.push(taskData);
+              data.tasksCount += 1;
+              adaRef.child('tasks').set(data.tasks).then(function () {
+                adaRef.child('tasksCount').set(data.tasksCount)
+                adaRef.child('tasks').set(data.tasks)
+                console.log(" succeeded.")
+              })
+                .catch(function (error) {
+                  console.log(" failed: " + error.message)
+                });
             });
         } else {
+          data.tasks.push(taskData);
+          data.tasksCount += 1;
+          adaRef.child('tasks').set(data.tasks).then(function () {
+            adaRef.child('tasksCount').set(data.tasksCount)
+            adaRef.child('tasks').set(data.tasks)
+            console.log(" succeeded.")
+          })
+            .catch(function (error) {
+              console.log(" failed: " + error.message)
+            });
 
         }
-        data.tasks.push(taskData);
-        data.tasksCount += 1;
-        adaRef.child('tasks').set(data.tasks).then(function () {
-          adaRef.child('tasksCount').set(data.tasksCount)
-          adaRef.child('tasks').set(data.tasks)
-          console.log(" succeeded.")
-        })
-          .catch(function (error) {
-            console.log(" failed: " + error.message)
-          });
+
       }
       resolve('Done');
     }).catch((error) => {

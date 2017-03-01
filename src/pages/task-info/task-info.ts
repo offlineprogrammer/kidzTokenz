@@ -6,6 +6,7 @@ import { Task } from '../../models/task';
 import { SocialSharing, Screenshot } from 'ionic-native';
 import { GAService } from '../../providers/ga-service';
 import { GAEvent } from '../../models/gaEvent';
+import { UserData } from '../../providers/user-data';
 
 
 /*
@@ -25,13 +26,23 @@ export class TaskInfoPage {
   tokenstriples: number[];
   bSocialSharing: boolean = false;
   sTaskscreen: string;
+  public isGuestUser: boolean;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private dataService: DataService,
     private platform: Platform,
+    public userService: UserData,
     private gaService: GAService) {
+    this.userService.getGuestUser().then((res) => {
+       console.log('Your name2222 is', res);
+
+      this.isGuestUser = res;
+    },
+      () => {
+        // this.logError('Facebook Sharing Failed');
+      });;
     this.oTask = navParams.get('task');
     this.oChild = navParams.get('child');
     this.tokenNumbers = this.fillArrayWithNumbers(+this.oChild.tokenNumbers);
