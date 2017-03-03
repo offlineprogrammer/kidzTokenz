@@ -56,6 +56,7 @@ export class HomePage {
     modal.onDidDismiss(data => {
       this.dataService.getKids()
         .then((response) => {
+          console.log(response);
           this.kids = response;
         });
     });

@@ -72,47 +72,6 @@ export class DataService {
     });
   }
 
-  createKid(data: Child, kidPicture): Promise<any> {
-    return new Promise(resolve => {
-      if (this.userService.isGuestUser) {
-        if (typeof this.kidzList === 'undefined') {
-          this.kidzList = [];
-        }
-        if (this.kidzList === null) {
-          this.kidzList = [];
-        }
-        this.kidzList.push(data);
-        this.saveData(this.kidzList, this.KIDS_KEY);
-        resolve("Done");
-      } else {
-
-        this.kidzList.push({
-          childimage: data.childimage,
-          name: data.name,
-          tokenType: data.tokenType,
-          negativetokenType: data.negativetokenType,
-          tokenNumbers: data.tokenNumbers,
-          srcTokenNumbers: data.srcTokenNumbers,
-          isActive: data.isActive,
-          tasksCount: data.tasksCount
-        }).then(newKid => {
-          this.kidzList.child(newKid.key).child('childId').set(newKid.key);
-          if (kidPicture != null) {
-            this.kidzPhotosRef.child(newKid.key).child('kidPhoto.png')
-              .putString(kidPicture, 'base64', { contentType: 'image/png' })
-              .then((savedPicture) => {
-                this.kidzList.child(newKid.key).child('kidPhoto')
-                  .set(savedPicture.downloadURL);
-                this.kidzList.child(newKid.key).child('childimage')
-                  .set("");
-              });
-          }
-        });
-      }
-      resolve("Done");
-    });
-  }
-
   private saveData(data: any, key: string) {
     if (data) {
       let newData = JSON.stringify(data);
@@ -167,6 +126,52 @@ export class DataService {
       // reject('Only available on a device');
     });
   }
+
+    createKid(data: Child, kidPicture): Promise<any> {
+    return new Promise(resolve => {
+      if (this.userService.isGuestUser) {
+        if (typeof this.kidzList === 'undefined') {
+          this.kidzList = [];
+        }
+        if (this.kidzList === null) {
+          this.kidzList = [];
+        }
+        this.kidzList.push(data);
+        this.saveData(this.kidzList, this.KIDS_KEY);
+        resolve("Done");
+      } else {
+
+        this.kidzList.push({
+          childimage: data.childimage,
+          name: data.name,
+          tokenType: data.tokenType,
+          negativetokenType: data.negativetokenType,
+          tokenNumbers: data.tokenNumbers,
+          srcTokenNumbers: data.srcTokenNumbers,
+          isActive: data.isActive,
+          tasksCount: data.tasksCount
+        }).then(newKid => {
+          this.kidzList.child(newKid.key).child('childId').set(newKid.key);
+          if (kidPicture != null) {
+            this.kidzPhotosRef.child(newKid.key).child('kidPhoto.png')
+              .putString(kidPicture, 'base64', { contentType: 'image/png' })
+              .then((savedPicture) => {
+                this.kidzList.child(newKid.key).child('kidPhoto')
+                  .set(savedPicture.downloadURL);
+                this.kidzList.child(newKid.key).child('childimage')
+                  .set("");
+                   resolve("Done");
+              });
+          } else{
+           resolve("Done");
+          }
+        });
+      }
+     
+    });
+  }
+
+ 
 
   creatTask(data: Child, taskData: Task, taskPicture): Promise<any> {
     return new Promise((resolve, reject) => {
