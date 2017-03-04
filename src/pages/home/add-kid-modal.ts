@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController, ModalController } from 'ionic-angular';
+import { NavController, ViewController, ModalController,LoadingController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
@@ -26,7 +26,8 @@ export class AddKidModal {
     private dataService: DataService,
     private viewController: ViewController,
     private modalController: ModalController,
-    private gaService: GAService
+    private gaService: GAService,
+    public loadingCtrl: LoadingController,
   ) {
     this.gaService.track_page_view('CreatKidModal');
     this.form = this.formBuilder.group({
@@ -82,6 +83,10 @@ export class AddKidModal {
 
   processForm() {
     let newkid: Child;
+    let loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    loader.present();
     newkid = {
       childId: this.generateUUID(),
       name: this.form.value.kidName,
@@ -101,6 +106,7 @@ export class AddKidModal {
           /*       this.dataService.updateKids();*/
           this.trackEvent('Child', 'AddChild', newkid.tokenType, newkid.tokenNumbers);
           console.log("done");
+          loader.dismiss()
           this.close();
         });
     };
