@@ -54,10 +54,14 @@ export class HomePage {
   addNewKid(): void {
     let modal = this.modalController.create(AddKidModal);
     modal.onDidDismiss(data => {
+      let loader = this.loadingCtrl.create({
+        content: "Please wait..."
+      });
+      loader.present();
       this.dataService.getKids()
         .then((response) => {
-          console.log(response);
           this.kids = response;
+          loader.dismiss()
         });
     });
     modal.present();

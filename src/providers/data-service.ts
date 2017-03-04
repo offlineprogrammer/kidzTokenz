@@ -142,7 +142,7 @@ export class DataService {
       } else {
 
         this.kidzList.push({
-          childimage: data.childimage,
+          childimage: '',//data.childimage,
           name: data.name,
           tokenType: data.tokenType,
           negativetokenType: data.negativetokenType,
