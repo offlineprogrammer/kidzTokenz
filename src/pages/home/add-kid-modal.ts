@@ -106,7 +106,7 @@ export class AddKidModal {
           /*       this.dataService.updateKids();*/
           this.trackEvent('Child', 'AddChild', newkid.tokenType, newkid.tokenNumbers);
           console.log("done");
-          loader.dismiss()
+          loader.dismiss();
           this.close();
         });
     };
