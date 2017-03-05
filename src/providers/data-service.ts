@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Child } from '../models/child';
+import { GAException } from '../models/gaException';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import firebase from 'firebase';
 import { UserData } from './user-data';
+import { GAService } from './ga-service';
 import { Task } from '../models/task';
 
 /*
@@ -20,7 +22,7 @@ export class DataService {
   public kidzPhotosRef: any;
   private KIDS_KEY: string = 'kids';
 
-  constructor(public http: Http, public storage: Storage, public userService: UserData, ) {
+  constructor(public http: Http, public storage: Storage, public userService: UserData, public gaService: GAService) {
     console.log('Hello DataService Provider');
     if (this.userService.isGuestUser) {
 
@@ -32,6 +34,17 @@ export class DataService {
     }
   }
 
+  private logError(data: any) {
+    let oGAException: GAException;
+    oGAException = {
+      description: data,
+      isFatal: false
+
+    };
+    this.gaService.trackException(oGAException);
+
+  }
+
 
   getKidsList(): any {
     return this.kidzList;
@@ -39,37 +52,44 @@ export class DataService {
 
 
   getKids(): Promise<Child[]> {
-    let oKids: any;
-    return new Promise(resolve => {
-      if (this.userService.isGuestUser) {
-        this.storage.get(this.KIDS_KEY).then((val) => {
-          console.log(val);
-          this.kidzList = JSON.parse(val);
-          resolve(this.kidzList);
-        })
-      } else {
-        this.kidzList.on('value', snapshot => {
-          let rawList = [];
-          snapshot.forEach(snap => {
-            rawList.push({
-              childId: snap.key,
-              name: snap.val().name,
-              tokenType: snap.val().tokenType,
-              negativetokenType: snap.val().negativetokenType,
-              tokenNumbers: snap.val().tokenNumbers,
-              srcTokenNumbers: snap.val().srcTokenNumbers,
-              isActive: snap.val().isActive,
-              childimage: snap.val().childimage,
-              tasksCount: snap.val().tasksCount,
-              kidPhoto: snap.val().kidPhoto,
-              tasks: snap.val().tasks
-            });
-          });
-          resolve(rawList);
-        });
-      }
 
-    });
+    try {
+      return new Promise(resolve => {
+        if (this.userService.isGuestUser) {
+          this.storage.get(this.KIDS_KEY).then((val) => {
+            console.log(val);
+            this.kidzList = JSON.parse(val);
+            resolve(this.kidzList);
+          })
+        } else {
+          this.kidzList.on('value', snapshot => {
+            let rawList = [];
+            snapshot.forEach(snap => {
+              rawList.push({
+                childId: snap.key,
+                name: snap.val().name,
+                tokenType: snap.val().tokenType,
+                negativetokenType: snap.val().negativetokenType,
+                tokenNumbers: snap.val().tokenNumbers,
+                srcTokenNumbers: snap.val().srcTokenNumbers,
+                isActive: snap.val().isActive,
+                childimage: snap.val().childimage,
+                tasksCount: snap.val().tasksCount,
+                kidPhoto: snap.val().kidPhoto,
+                tasks: snap.val().tasks
+              });
+            });
+            resolve(rawList);
+          });
+        }
+
+      });
+    } catch (error) {
+
+      this.logError(error);
+
+    }
+
   }
 
   private saveData(data: any, key: string) {
@@ -127,7 +147,7 @@ export class DataService {
     });
   }
 
-    createKid(data: Child, kidPicture): Promise<any> {
+  createKid(data: Child, kidPicture): Promise<any> {
     return new Promise(resolve => {
       if (this.userService.isGuestUser) {
         if (typeof this.kidzList === 'undefined') {
@@ -160,18 +180,18 @@ export class DataService {
                   .set(savedPicture.downloadURL);
                 this.kidzList.child(newKid.key).child('childimage')
                   .set("");
-                   resolve("Done");
+                resolve("Done");
               });
-          } else{
-           resolve("Done");
+          } else {
+            resolve("Done");
           }
         });
       }
-     
+
     });
   }
 
- 
+
 
   creatTask(data: Child, taskData: Task, taskPicture): Promise<any> {
     return new Promise((resolve, reject) => {

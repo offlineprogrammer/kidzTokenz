@@ -7,6 +7,7 @@ import { LoginPage } from '../pages/login/login';
 import firebase from 'firebase';
 
 
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -15,6 +16,7 @@ export class KidzTokenz {
   zone: NgZone;
 
   constructor(platform: Platform, public userData: UserData) {
+
     this.zone = new NgZone({});
     userData.getGuestUser()
       .then((response) => {
