@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Child } from '../../models/child';
 import { NavController, ModalController, LoadingController, Events } from 'ionic-angular';
+import { Splashscreen } from 'ionic-native';
 import { AddKidModal } from './add-kid-modal';
 import { DataService } from '../../providers/data-service';
 import { StorageData } from '../../providers/storage-data';
@@ -35,6 +36,7 @@ export class HomePage {
         loader.dismiss()
       });
     this.gaService.track_page_view('HomePage');
+      Splashscreen.hide();
   }
 
   ngOnInit() {

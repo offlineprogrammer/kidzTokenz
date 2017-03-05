@@ -5,6 +5,7 @@ import { UserData } from '../../providers/user-data';
 import { HomePage } from '../home/home';
 import { Facebook } from 'ionic-native';
 import { GAService } from '../../providers/ga-service';
+import { Splashscreen } from 'ionic-native';
 
 /*
   Generated class for the Login page.
@@ -21,6 +22,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public authData: AuthData, public userData: UserData, private gaService: GAService
     , public loadingCtrl: LoadingController) {
     this.gaService.track_page_view('LoginPage');
+      Splashscreen.hide();
   }
 
   ionViewDidLoad() {
