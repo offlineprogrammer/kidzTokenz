@@ -6,6 +6,7 @@ import { AddKidModal } from './add-kid-modal';
 import { DataService } from '../../providers/data-service';
 import { StorageData } from '../../providers/storage-data';
 import { ChildinfoPage } from '../childinfo/childinfo';
+import { AppInfoPage } from '../app-info/app-info';
 import { UserData } from '../../providers/user-data';
 import { GAService } from '../../providers/ga-service';
 
@@ -66,6 +67,11 @@ export class HomePage {
           loader.dismiss()
         });
     });
+    modal.present();
+  }
+
+    showInfo(): void {
+    let modal = this.modalController.create(AppInfoPage);
     modal.present();
   }
 

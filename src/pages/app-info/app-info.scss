@@ -1,3 +1,82 @@
 page-app-info {
 
+    .login-content {
+        // display: flex;
+        //flex-direction: column;
+       // background: url('../assets/images/green-background.png') no-repeat center center fixed !important;
+        
+        background-size: cover;
+        font-family: 'Open Sans', sans-serif !important;
+        color: black !important;
+         display: flex;
+        flex-direction: column;
+         display: -webkit-flex;
+    -webkit-flex-direction: column;
+    height: 100%;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#efad62), color-stop(100%,#f7d47c));
+    background: -webkit-linear-gradient(top, #efad62 0%,#f7d47c 100%);
+    }
+
+    ion-grid {
+        padding: 0;
+        height: 100%;
+    }
+
+
+
+    .header-row {
+          flex: 4;
+          padding-top: 20px;
+
+    }
+
+    .footer-row{
+          flex: 1;
+
+    }
+
+    .body-row{
+          flex: 1;
+
+    }
+
+   .login-header img {
+        background-color: #3D8A4C !important;
+        box-shadow: 0 0 2px 2px #FFFFFF;
+        border-radius: 0 8px;
+       // padding: 5px !important;
+        padding-bottom: 0 !important;
+        margin: 10px 2px 2px 1px;
+        font-weight: bold;
+        color: #FFFFFF;
+        font-size: 10px;
+        max-height: 80%;
+	max-width: 80%;
+	width: auto;
+
+    
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+
+
+         
+    
+    }
+
+
+
+
+
+   .register-btn {
+      font-family: "bebas-neue",sans-serif!important;
+  color: #FFC715; 
+font-size: 16px !important;
+text-decoration: underline;
+    //font-weight: bold;
+    text-transform: capitalize!important;
+     }
+
+
+
 }

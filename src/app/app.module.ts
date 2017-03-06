@@ -15,6 +15,7 @@ import { StorageData } from '../providers/storage-data';
 import { UserData } from '../providers/user-data';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
+import { AppInfoPage } from '../pages/app-info/app-info';
 
 export function provideStorage() {
   return new Storage(['sqlite', 'websql', 'indexeddb'], { name: '__mydb' })// optional config);
@@ -31,7 +32,8 @@ export function provideStorage() {
     TokennumbersPage,
     TaskInfoPage,
     AddTaskModal,
-    LoginPage
+    LoginPage,
+    AppInfoPage
   ],
   imports: [
     IonicModule.forRoot(KidzTokenz)
@@ -46,7 +48,8 @@ export function provideStorage() {
     TokennumbersPage,
     TaskInfoPage,
     AddTaskModal,
-    LoginPage
+    LoginPage,
+    AppInfoPage
   ],
   providers: [Storage,DataService,GAService,AuthData,UserData,StorageData,{provide: ErrorHandler, useClass: IonicErrorHandler,useFactory: provideStorage}]
 })
