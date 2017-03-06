@@ -12,6 +12,7 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class UserData {
    public isGuestUser: boolean;
+    public isStartup: boolean = true;
 
   constructor(public http: Http, public storage: Storage) {
     console.log('Hello UserData Provider');
@@ -22,6 +23,7 @@ export class UserData {
     console.log('Set Your name is', bGuestUser);
     this.storage.set('isGuestUser', bGuestUser);
     this.isGuestUser = bGuestUser;
+    this.isStartup = false;
   }
 
   getGuestUser(): Promise<boolean> {

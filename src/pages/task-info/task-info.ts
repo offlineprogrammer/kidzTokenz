@@ -42,7 +42,7 @@ export class TaskInfoPage {
     },
       () => {
         // this.logError('Facebook Sharing Failed');
-      });;
+      });
     this.oTask = navParams.get('task');
     this.oChild = navParams.get('child');
     this.tokenNumbers = this.fillArrayWithNumbers(+this.oChild.tokenNumbers);

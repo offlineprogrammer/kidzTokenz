@@ -22,7 +22,29 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public authData: AuthData, public userData: UserData, private gaService: GAService
     , public loadingCtrl: LoadingController) {
     this.gaService.track_page_view('LoginPage');
-      Splashscreen.hide();
+    Splashscreen.hide();
+  }
+
+
+  ionViewWillEnter() {
+
+    if (this.userData.isStartup) {
+    } else {
+
+      if (this.userData.isGuestUser) {
+        console.log('ionViewWillEnter Guest LoginPage');
+
+
+      } else {
+        this.navCtrl.push(HomePage, {});
+        console.log('ionViewWillEnter NOT GUEST LoginPage');
+      }
+
+    }
+
+
+
+    console.log('ionViewWillEnter nnnnn LoginPage');
   }
 
   ionViewDidLoad() {
