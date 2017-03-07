@@ -54,14 +54,7 @@ export class HomePage {
 
   ionViewWillLeave() {
 
-    if (this.isGuestUser) {
-      console.log('ionViewWillLeave Guest LoginPage');
-    } else {
-      this.navCtrl.push(HomePage, {});
-      console.log('ionViewWillLeave NOT GUEST LoginPage');
-    }
 
-    console.log('ionViewWillEnter nnnnn LoginPage');
   }
 
   addNewKid(): void {
