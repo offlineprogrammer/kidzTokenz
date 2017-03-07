@@ -19,7 +19,7 @@
     </ion-row>
     <ion-row class="footer-row">
       <ion-col text-center>
-        <button ion-button class="register-btn" block clear (click)="contineAsGuest()">Sign out</button>
+        <button ion-button *ngIf="!isGuestUser" class="register-btn" block clear (click)="contineAsGuest()">Sign out</button>
       </ion-col>
     </ion-row>
     <ion-row class="footer-row">

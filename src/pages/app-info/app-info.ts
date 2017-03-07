@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AppRate } from 'ionic-native';
 import { Platform } from 'ionic-angular';
+import { UserData } from '../../providers/user-data';
 
 /*
   Generated class for the AppInfo page.
@@ -15,8 +16,10 @@ import { Platform } from 'ionic-angular';
 })
 export class AppInfoPage {
   appRate: any = AppRate;
+    public isGuestUser: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewController: ViewController, public platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewController: ViewController, public platform: Platform, public userService: UserData,) {
+     this.isGuestUser = this.userService.isGuestUser;
     this.platform.ready().then(
       () => this.appRate.preferences.storeAppURL = {
         ios: '1150112049',
