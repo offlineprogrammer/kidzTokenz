@@ -266,7 +266,6 @@ export class DataService {
 
 
   updateKids(): Promise<any> {
-    let oKids: any;
     return new Promise((resolve, reject) => {
       if (typeof this.kidzList === 'undefined') {
         this.kidzList = [];

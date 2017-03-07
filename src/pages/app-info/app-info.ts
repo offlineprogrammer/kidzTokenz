@@ -23,7 +23,6 @@ export class AppInfoPage {
         android: 'market://details?id=com.offlineprogrammer.KidzTokenz'
       }
     )
-
   }
 
   ionViewDidLoad() {
@@ -38,6 +37,4 @@ export class AppInfoPage {
   rateApp() {
     AppRate.promptForRating(true);
   }
-
-
 }

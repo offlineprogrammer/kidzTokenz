@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ViewController, ModalController, NavParams } from 'ionic-angular';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
 import { Task } from '../../models/task';

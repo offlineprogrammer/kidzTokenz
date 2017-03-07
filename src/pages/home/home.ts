@@ -4,7 +4,6 @@ import { NavController, ModalController, LoadingController, Events } from 'ionic
 import { Splashscreen } from 'ionic-native';
 import { AddKidModal } from './add-kid-modal';
 import { DataService } from '../../providers/data-service';
-import { StorageData } from '../../providers/storage-data';
 import { ChildinfoPage } from '../childinfo/childinfo';
 import { AppInfoPage } from '../app-info/app-info';
 import { UserData } from '../../providers/user-data';
@@ -21,7 +20,6 @@ export class HomePage {
   constructor(public navCtrl: NavController,
     private modalController: ModalController,
     public dataService: DataService,
-    public storageService: StorageData,
     public userService: UserData,
     private gaService: GAService,
     public loadingCtrl: LoadingController,
@@ -37,7 +35,7 @@ export class HomePage {
         loader.dismiss()
       });
     this.gaService.track_page_view('HomePage');
-      Splashscreen.hide();
+    Splashscreen.hide();
   }
 
   ngOnInit() {
@@ -52,6 +50,20 @@ export class HomePage {
           loader.dismiss()
         });
     });
+  }
+
+  ionViewWillLeave() {
+    if (this.userService.isStartup) {
+    } else {
+
+      if (this.userService.isGuestUser) {
+        console.log('ionViewWillLeave Guest LoginPage');
+      } else {
+        this.navCtrl.push(HomePage, {});
+        console.log('ionViewWillLeave NOT GUEST LoginPage');
+      }
+    }
+    console.log('ionViewWillEnter nnnnn LoginPage');
   }
 
   addNewKid(): void {
@@ -70,7 +82,7 @@ export class HomePage {
     modal.present();
   }
 
-    showInfo(): void {
+  showInfo(): void {
     let modal = this.modalController.create(AppInfoPage);
     modal.present();
   }
