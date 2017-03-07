@@ -8,6 +8,7 @@ import { ChildinfoPage } from '../childinfo/childinfo';
 import { AppInfoPage } from '../app-info/app-info';
 import { UserData } from '../../providers/user-data';
 import { GAService } from '../../providers/ga-service';
+import { Platform } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -23,6 +24,7 @@ export class HomePage {
     public userService: UserData,
     private gaService: GAService,
     public loadingCtrl: LoadingController,
+    public platform: Platform,
     public events: Events) {
     this.isGuestUser = this.userService.isGuestUser;
     let loader = this.loadingCtrl.create({
@@ -36,6 +38,15 @@ export class HomePage {
       });
     this.gaService.track_page_view('HomePage');
     Splashscreen.hide();
+
+      platform.registerBackButtonAction(() => {
+
+         this.navCtrl.setRoot(HomePage, {});
+
+    });
+
+
+
   }
 
   ngOnInit() {

@@ -31,14 +31,7 @@ export class LoginPage {
     if (this.userData.isStartup) {
     } else {
 
-      if (this.userData.isGuestUser) {
-        console.log('ionViewWillEnter Guest LoginPage');
-
-
-      } else {
-        this.navCtrl.push(HomePage, {});
-        console.log('ionViewWillEnter NOT GUEST LoginPage');
-      }
+      this.navCtrl.push(HomePage, {});
 
     }
 
@@ -64,9 +57,10 @@ export class LoginPage {
         .then(response => {
           console.log('test');
           loader.dismiss();
-          this.navCtrl.push(HomePage, {});
+     //     this.navCtrl.push(HomePage, {});
           this.userData.setGuestUser(false);
           this.gaService.setUserType(false);
+          this.navCtrl.setRoot(HomePage, {});
 
         }, function (error) {
           loader.dismiss();
@@ -81,7 +75,8 @@ export class LoginPage {
   contineAsGuest() {
     this.userData.setGuestUser(true);
     this.gaService.setUserType(true);
-    this.navCtrl.push(HomePage, {});
+   // this.navCtrl.push(HomePage, {});
+    this.navCtrl.setRoot(HomePage, {});
   }
 
 
