@@ -53,16 +53,14 @@ export class HomePage {
   }
 
   ionViewWillLeave() {
-    if (this.userService.isStartup) {
-    } else {
 
-      if (this.userService.isGuestUser) {
-        console.log('ionViewWillLeave Guest LoginPage');
-      } else {
-        this.navCtrl.push(HomePage, {});
-        console.log('ionViewWillLeave NOT GUEST LoginPage');
-      }
+    if (this.isGuestUser) {
+      console.log('ionViewWillLeave Guest LoginPage');
+    } else {
+      this.navCtrl.push(HomePage, {});
+      console.log('ionViewWillLeave NOT GUEST LoginPage');
     }
+
     console.log('ionViewWillEnter nnnnn LoginPage');
   }
 
