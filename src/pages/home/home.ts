@@ -39,9 +39,9 @@ export class HomePage {
     this.gaService.track_page_view('HomePage');
     Splashscreen.hide();
 
-    platform.registerBackButtonAction(() => {
+      platform.registerBackButtonAction(() => {
 
-      this.navCtrl.setRoot(HomePage, {});
+         this.navCtrl.setRoot(HomePage, {});
 
     });
 

@@ -8,7 +8,7 @@ import firebase from 'firebase';
 import { UserData } from './user-data';
 import { GAService } from './ga-service';
 import { Task } from '../models/task';
-import { Events } from 'ionic-angular';
+
 /*
   Generated class for the DataService provider.
 
@@ -22,7 +22,7 @@ export class DataService {
   public kidzPhotosRef: any;
   private KIDS_KEY: string = 'kids';
 
-  constructor(public http: Http, public storage: Storage, public userService: UserData, public gaService: GAService, public events: Events) {
+  constructor(public http: Http, public storage: Storage, public userService: UserData, public gaService: GAService) {
     console.log('Hello DataService Provider');
     if (this.userService.isGuestUser) {
 
@@ -33,15 +33,6 @@ export class DataService {
       this.kidzPhotosRef = firebase.storage().ref('/kidzPhotos/');
     }
   }
-
-  /* ngOnInit() {
-     this.events.subscribe('user:signIn', () => {
-       this.currentUser = firebase.auth().currentUser.uid;
-       this.kidzList = firebase.database()
-         .ref(`userProfile/${this.currentUser}/kidz`);
-       this.kidzPhotosRef = firebase.storage().ref('/kidzPhotos/');
-     });
-   }*/
 
   private logError(data: any) {
     let oGAException: GAException;
