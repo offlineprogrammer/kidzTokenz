@@ -17,14 +17,9 @@
         <button ion-button color="danger" type="button" full round large (click)="rateApp()">Enjoying Kidz Tokenz ??</button>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="isGuestUser" class="footer-row">
-      <ion-col text-center>
-        <img src="./assets/images/facebook.png" (click)="facebookLogin()" />
-      </ion-col>
-    </ion-row>
     <ion-row class="footer-row">
       <ion-col text-center>
-        <button ion-button *ngIf="!isGuestUser" class="register-btn" block clear (click)="facebookLogout()">Sign out</button>
+        <button ion-button *ngIf="!isGuestUser" class="register-btn" block clear (click)="contineAsGuest()">Sign out</button>
       </ion-col>
     </ion-row>
     <ion-row class="footer-row">
