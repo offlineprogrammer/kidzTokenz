@@ -44,5 +44,61 @@ export class AppInfoPage {
     AppRate.promptForRating(true);
   }
 
+  facebookLogin() {
+    let loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    loader.present();
+    Facebook.login(['email']).then((response) => {
 
+
+      this.authData.loginUser(response.authResponse.accessToken)
+        .then(response => {
+          console.log('logged ok');
+          loader.dismiss();
+          //     this.navCtrl.push(HomePage, {});
+          this.userService.setGuestUser(false);
+          this.gaService.setUserType(false);
+          let data = { 'user': 'login' };
+          this.viewCtrl.dismiss(data);
+           
+          this.close();
+
+        }, function (error) {
+          loader.dismiss();
+          console.log(error);
+        });
+
+
+
+    }).catch((error) => { loader.dismiss(); console.log(error) });
+  }
+
+
+  facebookLogout() {
+    let loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    loader.present();
+    Facebook.logout().then((response) => {
+
+
+      this.authData.logOutUser()
+        .then(response => {
+          console.log('test');
+          loader.dismiss();
+          //     this.navCtrl.push(HomePage, {});
+          this.userService.setGuestUser(true);
+          this.gaService.setUserType(true);
+          this.close();
+
+        }, function (error) {
+          loader.dismiss();
+          console.log(error);
+        });
+
+
+
+    }).catch((error) => { loader.dismiss(); console.log(error) });
+  }
 }
