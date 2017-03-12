@@ -31,7 +31,7 @@ export class AuthData {
     }
 
 
-    loginUser2(accessToken: string): any {
+    loginUser(accessToken: string): any {
         let facebookCredential = firebase.auth.FacebookAuthProvider
             .credential(accessToken);
         console.log("Firebase  ");
@@ -49,7 +49,7 @@ export class AuthData {
     }
 
 
-    loginUser(accessToken: string): Promise<any> {
+    loginUser2(accessToken: string): Promise<any> {
         return new Promise((resolve, reject) => {
 
 

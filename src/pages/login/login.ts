@@ -45,7 +45,7 @@ export class LoginPage {
 
   }
 
-  facebookLogin() {
+   facebookLogin() {
     let loader = this.loadingCtrl.create({
       content: "Please wait..."
     });
@@ -57,10 +57,9 @@ export class LoginPage {
         .then(response => {
           console.log('test');
           loader.dismiss();
-     //     this.navCtrl.push(HomePage, {});
+          this.navCtrl.push(HomePage, {});
           this.userData.setGuestUser(false);
           this.gaService.setUserType(false);
-          this.navCtrl.setRoot(HomePage, {});
 
         }, function (error) {
           loader.dismiss();
@@ -71,6 +70,7 @@ export class LoginPage {
 
     }).catch((error) => { loader.dismiss(); console.log(error) });
   }
+
 
   contineAsGuest() {
     this.userData.setGuestUser(true);

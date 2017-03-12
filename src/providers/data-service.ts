@@ -25,19 +25,12 @@ export class DataService {
   constructor(public http: Http, public storage: Storage, public userService: UserData, public gaService: GAService, public events: Events) {
     console.log('Hello DataService Provider');
     if (this.userService.isGuestUser) {
-      console.log('DataService : Guest user');
 
     } else {
-      if (this.userService.isGuestUser === null) {
-
-      } else {
-        console.log('DataService : Not Guest user');
-        console.log(this.userService.isGuestUser);
-        this.currentUser = firebase.auth().currentUser.uid;
-        this.kidzList = firebase.database()
-          .ref(`userProfile/${this.currentUser}/kidz`);
-        this.kidzPhotosRef = firebase.storage().ref('/kidzPhotos/');
-      }
+      this.currentUser = firebase.auth().currentUser.uid;
+      this.kidzList = firebase.database()
+        .ref(`userProfile/${this.currentUser}/kidz`);
+      this.kidzPhotosRef = firebase.storage().ref('/kidzPhotos/');
     }
   }
 
@@ -66,20 +59,6 @@ export class DataService {
     return this.kidzList;
   }
 
-  ResetKidsList(): void {
-    firebase.initializeApp({
-      apiKey: "AIzaSyCh4LNH_Srbq7LXCC8QRUnz2BiodEvK5MQ",
-      authDomain: "kidztokenz.firebaseapp.com",
-      databaseURL: "https://kidztokenz.firebaseio.com",
-      storageBucket: "kidztokenz.appspot.com",
-      messagingSenderId: "910876779586"
-    });
-    this.currentUser = firebase.auth().currentUser.uid;
-    this.kidzList = firebase.database()
-      .ref(`userProfile/${this.currentUser}/kidz`);
-    this.kidzPhotosRef = firebase.storage().ref('/kidzPhotos/');
-  }
-
 
   getKids(): Promise<Child[]> {
 
@@ -92,18 +71,6 @@ export class DataService {
             resolve(this.kidzList);
           })
         } else {
-          if (typeof this.kidzList === 'undefined') {
-            this.currentUser = firebase.auth().currentUser.uid;
-            this.kidzList = firebase.database()
-              .ref(`userProfile/${this.currentUser}/kidz`);
-            this.kidzPhotosRef = firebase.storage().ref('/kidzPhotos/');
-          }
-          if (this.kidzList === null) {
-            this.currentUser = firebase.auth().currentUser.uid;
-            this.kidzList = firebase.database()
-              .ref(`userProfile/${this.currentUser}/kidz`);
-            this.kidzPhotosRef = firebase.storage().ref('/kidzPhotos/');
-          }
           this.kidzList.on('value', snapshot => {
             let rawList = [];
             snapshot.forEach(snap => {
