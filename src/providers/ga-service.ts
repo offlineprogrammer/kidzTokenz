@@ -54,7 +54,7 @@ export class GAService {
 
           GoogleAnalytics.debugMode();
 
-          GoogleAnalytics.startTrackerWithId("UA-70035565-3").then((_result) => {
+          GoogleAnalytics.startTrackerWithId("UA-70035565-4").then((_result) => {
 
             this.initialized = true;
 

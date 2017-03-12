@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, Events } from 'ionic-angular';
+import { NavController, NavParams, ModalController, Events, LoadingController,Platform } from 'ionic-angular';
 import { Child } from '../../models/child';
 import { TokentypePage } from '../tokentype/tokentype';
 import { TokennumbersPage } from '../tokennumbers/tokennumbers';
@@ -10,6 +10,7 @@ import { Task } from '../../models/task';
 import { UserData } from '../../providers/user-data';
 import { GAService } from '../../providers/ga-service';
 import { GAEvent } from '../../models/gaEvent';
+import { AppRate } from 'ionic-native';
 
 /*
   Generated class for the Childinfo page.
@@ -24,6 +25,7 @@ import { GAEvent } from '../../models/gaEvent';
 export class ChildinfoPage {
   oChild: Child
   public isGuestUser: boolean;
+    appRate: any = AppRate;
 
   constructor(
     public navCtrl: NavController,
@@ -32,12 +34,24 @@ export class ChildinfoPage {
     private dataService: DataService,
     public userService: UserData,
     private gaService: GAService,
+    public loadingCtrl: LoadingController,
+     private platform: Platform,
     public events: Events) {
     this.oChild = navParams.get('child');
     this.isGuestUser = this.userService.isGuestUser;
     this.gaService.track_page_view('ChildInfo');
+    this.platform.ready().then(
+      () => this.appRate.preferences.storeAppURL = {
+        ios: '1150112049',
+        android: 'market://details?id=com.offlineprogrammer.KidzTokenz'
+      }
+    )
   }
 
+  rateApp() {
+    AppRate.promptForRating(true);
+  }
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChildinfoPage');
   }
@@ -59,7 +73,7 @@ export class ChildinfoPage {
       this.oChild.tokenNumbers = data.tokenNumbers;
       this.oChild.srcTokenNumbers = 'assets/images/' + this.oChild.tokenNumbers + '.png';
       this.updateData();
-      this.trackEvent('ChildInfo', 'changeTokenNumbers',  this.oChild.srcTokenNumbers , 0);
+      this.trackEvent('ChildInfo', 'changeTokenNumbers', this.oChild.srcTokenNumbers, 0);
     });
     modal.present();
   }
@@ -82,6 +96,16 @@ export class ChildinfoPage {
 
   addNewTask(data: any): void {
     let modal = this.modalController.create(AddTaskModal, { 'child': this.oChild });
+    modal.onDidDismiss(data => {
+      let loader = this.loadingCtrl.create({
+        content: "Please wait..."
+      });
+      loader.present();
+      setTimeout(() => {
+        loader.dismiss();
+      }, 2000);
+
+    });
     modal.present();
 
   }
@@ -97,7 +121,7 @@ export class ChildinfoPage {
 
     this.dataService.deleteKid(data)
       .then(() => {
-        this.trackEvent('ChildInfo', 'deleteChild', '' , 0);
+        this.trackEvent('ChildInfo', 'deleteChild', '', 0);
         this.events.publish('child:deleted');
         this.navCtrl.pop();
       });

@@ -7,6 +7,7 @@ import { SocialSharing, Screenshot } from 'ionic-native';
 import { GAService } from '../../providers/ga-service';
 import { GAEvent } from '../../models/gaEvent';
 import { UserData } from '../../providers/user-data';
+import { AppRate } from 'ionic-native';
 
 
 /*
@@ -20,6 +21,7 @@ import { UserData } from '../../providers/user-data';
   templateUrl: 'task-info.html'
 })
 export class TaskInfoPage {
+  appRate: any = AppRate;
   oChild: Child;
   oTask: Task;
   tokenNumbers: number[];
@@ -36,7 +38,7 @@ export class TaskInfoPage {
     public userService: UserData,
     private gaService: GAService) {
     this.userService.getGuestUser().then((res) => {
-       console.log('Your name2222 is', res);
+      console.log('Your name2222 is', res);
 
       this.isGuestUser = res;
     },
@@ -48,6 +50,16 @@ export class TaskInfoPage {
     this.tokenNumbers = this.fillArrayWithNumbers(+this.oChild.tokenNumbers);
     this.tokenstriples = this.getTriples();
     this.gaService.track_page_view('TaskInfo');
+    this.platform.ready().then(
+      () => this.appRate.preferences.storeAppURL = {
+        ios: '1150112049',
+        android: 'market://details?id=com.offlineprogrammer.KidzTokenz'
+      }
+    )
+  }
+
+  rateApp() {
+    AppRate.promptForRating(true);
   }
 
   ionViewDidLoad() {

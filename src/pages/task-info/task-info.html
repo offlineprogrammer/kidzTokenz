@@ -66,6 +66,11 @@
         </button>
       </ion-col>
     </ion-row>
+        <ion-row >
+      <ion-col text-center>
+        <button ion-button color="danger" type="button" full round large (click)="rateApp()">Enjoying Kidz Tokenz ??</button>
+      </ion-col>
+    </ion-row>
     <div class="task-photo" text-center>
       <img *ngIf="!isGuestUser" src="{{oTask.taskPhoto}}" class="task-background-image">
       <img *ngIf="isGuestUser" src="{{oTask.taskimage}}" class="task-background-image">
