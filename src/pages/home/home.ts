@@ -39,9 +39,9 @@ export class HomePage {
     this.gaService.track_page_view('HomePage');
     Splashscreen.hide();
 
-      platform.registerBackButtonAction(() => {
+    platform.registerBackButtonAction(() => {
 
-         this.navCtrl.setRoot(HomePage, {});
+      this.navCtrl.setRoot(HomePage, {});
 
     });
 
@@ -86,6 +86,22 @@ export class HomePage {
 
   showInfo(): void {
     let modal = this.modalController.create(AppInfoPage);
+    modal.onDidDismiss(data => {
+      let loader = this.loadingCtrl.create({
+        content: "Please wait..."
+      });
+      loader.present();
+      if (data===null){
+
+      } else {
+         this.dataService.ResetKidsList();
+      }
+      this.dataService.getKids()
+        .then((response) => {
+          this.kids = response;
+          loader.dismiss()
+        });
+    });
     modal.present();
   }
 
