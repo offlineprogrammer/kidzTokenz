@@ -220,6 +220,8 @@ export class DataService {
                 });
             });
         } else {
+           console.log(" no image.")
+           taskData.taskimage = "";
           data.tasks.push(taskData);
           data.tasksCount += 1;
           adaRef.child('tasks').set(data.tasks).then(function () {
