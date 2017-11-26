@@ -5,7 +5,7 @@ import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
 import { TokentypePage } from '../tokentype/tokentype';
 import { TokennumbersPage } from '../tokennumbers/tokennumbers';
-import { Camera } from 'ionic-native';
+import { Camera } from 'ionic-native/camera';
 import { GAService } from '../../providers/ga-service';
 import { GAEvent } from '../../models/gaEvent';
 

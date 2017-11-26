@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Facebook } from 'ionic-native';
+import { Facebook } from 'ionic-native/facebook';
 import firebase from 'firebase';
 /*
   Generated class for the AuthData provider.

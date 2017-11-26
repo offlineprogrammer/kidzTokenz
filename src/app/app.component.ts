@@ -1,6 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { StatusBar } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
 import { UserData } from '../providers/user-data';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -15,7 +15,7 @@ export class KidzTokenz {
   rootPage: any;
   zone: NgZone;
 
-  constructor(platform: Platform, public userData: UserData) {
+  constructor(platform: Platform, statusBar: StatusBar, public userData: UserData) {
 
     this.zone = new NgZone({});
     userData.getGuestUser()
@@ -51,7 +51,7 @@ export class KidzTokenz {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
+      statusBar.styleDefault();
    //   Splashscreen.hide();
     });
   }

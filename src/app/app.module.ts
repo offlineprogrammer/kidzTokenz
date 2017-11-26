@@ -15,6 +15,8 @@ import { UserData } from '../providers/user-data';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
 import { AppInfoPage } from '../pages/app-info/app-info';
+import { StatusBar } from '@ionic-native/status-bar';
+
 
 export function provideStorage() {
   return new Storage(['sqlite', 'websql', 'indexeddb'], { name: '__mydb' })// optional config);
@@ -50,6 +52,6 @@ export function provideStorage() {
     LoginPage,
     AppInfoPage
   ],
-  providers: [Storage,DataService,GAService,AuthData,UserData,{provide: ErrorHandler, useClass: IonicErrorHandler,useFactory: provideStorage}]
+  providers: [StatusBar,Storage,DataService,GAService,AuthData,UserData,{provide: ErrorHandler,  useClass: IonicErrorHandler,useFactory: provideStorage}]
 })
 export class AppModule {}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { GoogleAnalytics } from 'ionic-native';
+import { GoogleAnalytics } from 'ionic-native/google-analytics';
 import { Platform } from 'ionic-angular';
 import { GAEvent } from '../models/gaEvent';
 import { GAException } from '../models/gaException';

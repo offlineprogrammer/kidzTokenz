@@ -3,9 +3,9 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth-data';
 import { UserData } from '../../providers/user-data';
 import { HomePage } from '../home/home';
-import { Facebook } from 'ionic-native';
+import { Facebook } from 'ionic-native/facebook';
 import { GAService } from '../../providers/ga-service';
-import { Splashscreen } from 'ionic-native';
+import { Splashscreen } from 'ionic-native/splash-screen';
 
 /*
   Generated class for the Login page.

@@ -3,11 +3,12 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
 import { Task } from '../../models/task';
-import { SocialSharing, Screenshot } from 'ionic-native';
+import { SocialSharing } from 'ionic-native/social-sharing';
+import {  Screenshot } from 'ionic-native/screenshot';
 import { GAService } from '../../providers/ga-service';
 import { GAEvent } from '../../models/gaEvent';
 import { UserData } from '../../providers/user-data';
-import { AppRate } from 'ionic-native';
+import { AppRate } from 'ionic-native/app-rate';
 
 
 /*

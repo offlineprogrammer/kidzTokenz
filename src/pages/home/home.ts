@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Child } from '../../models/child';
 import { NavController, ModalController, LoadingController, Events } from 'ionic-angular';
-import { Splashscreen } from 'ionic-native';
+import { Splashscreen } from 'ionic-native/splash-screen';
 import { AddKidModal } from './add-kid-modal';
 import { DataService } from '../../providers/data-service';
 import { ChildinfoPage } from '../childinfo/childinfo';

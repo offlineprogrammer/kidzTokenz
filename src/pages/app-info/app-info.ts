@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
-import { AppRate } from 'ionic-native';
+import { AppRate } from 'ionic-native/app-rate';
 import { Platform } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 

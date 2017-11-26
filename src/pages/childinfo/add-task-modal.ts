@@ -4,7 +4,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { DataService } from '../../providers/data-service';
 import { Child } from '../../models/child';
 import { Task } from '../../models/task';
-import { Camera } from 'ionic-native';
+import { Camera } from 'ionic-native/camera';
 import { GAService } from '../../providers/ga-service';
 import { GAEvent } from '../../models/gaEvent';
 @Component({

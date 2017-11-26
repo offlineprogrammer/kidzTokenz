@@ -10,7 +10,7 @@ import { Task } from '../../models/task';
 import { UserData } from '../../providers/user-data';
 import { GAService } from '../../providers/ga-service';
 import { GAEvent } from '../../models/gaEvent';
-import { AppRate } from 'ionic-native';
+import { AppRate } from 'ionic-native/app-rate';
 
 /*
   Generated class for the Childinfo page.
